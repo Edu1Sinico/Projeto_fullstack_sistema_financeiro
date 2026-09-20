@@ -18,8 +18,8 @@ Não são utilizados DTOs, repositories ou camadas de casos de uso. Como este pr
 - PHP 8.3 ou superior;
 - Laravel 13;
 - Eloquent ORM;
-- PostgreSQL para desenvolvimento e testes;
-- MySQL 8.4 como banco alternativo para a entrega;
+- MySQL 8.4 para desenvolvimento, testes e entrega;
+- PostgreSQL também compatível com as migrations;
 - `firebase/php-jwt` para criação e validação dos tokens;
 - Pest para testes automatizados;
 - PHPStan/Larastan para análise estática;
@@ -263,9 +263,40 @@ Nunca envie o arquivo `.env` para o repositório.
 
 ## Configuração do banco
 
-### PostgreSQL
+### MySQL (configuração principal)
 
 Configuração padrão de desenvolvimento:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sistema_financeiro
+DB_USERNAME=mysql
+DB_PASSWORD=sua_senha
+```
+
+O MySQL Workbench é apenas a interface de administração. Instale também o MySQL Server 8.4 e confirme que o serviço está em execução. Depois, crie dois bancos pelo Workbench:
+
+```sql
+CREATE DATABASE sistema_financeiro
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+CREATE DATABASE sistema_financeiro_testing
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+```
+
+Para iniciar o MySQL configurado no perfil alternativo do Docker Compose:
+
+```bash
+docker compose --profile mysql up -d mysql
+```
+
+### PostgreSQL (alternativo)
+
+Para utilizar PostgreSQL, altere somente a configuração de ambiente:
 
 ```env
 DB_CONNECTION=pgsql
@@ -276,31 +307,10 @@ DB_USERNAME=postgres
 DB_PASSWORD=postgres
 ```
 
-Crie o banco `sistema_financeiro` pelo pgAdmin ou pelo terminal do PostgreSQL.
-
 Para iniciar apenas o PostgreSQL pelo Docker:
 
 ```bash
 docker compose up -d postgres
-```
-
-### MySQL
-
-Para utilizar MySQL, altere somente a configuração de ambiente:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=sistema_financeiro
-DB_USERNAME=usuario
-DB_PASSWORD=senha
-```
-
-Para iniciar o MySQL configurado no perfil alternativo do Docker Compose:
-
-```bash
-docker compose --profile mysql up -d mysql
 ```
 
 As migrations utilizam recursos comuns aos dois bancos, permitindo a troca sem alterações no código da aplicação.
@@ -582,19 +592,21 @@ As funcionalidades podem ser testadas no Postman, Insomnia ou outra ferramenta H
 
 ## Testes automatizados
 
-Os testes usam o banco PostgreSQL isolado `sistema_financeiro_testing`. Crie esse banco antes da primeira execução pelo pgAdmin ou pelo terminal do PostgreSQL.
+Os testes usam o banco MySQL isolado `sistema_financeiro_testing`. Nunca utilize aqui o banco normal `sistema_financeiro`, pois a suíte recria as tabelas.
 
-As credenciais padrão estão no `phpunit.xml`:
+Crie a configuração local de testes no PowerShell:
 
-```text
-Banco: sistema_financeiro_testing
-Usuário: postgres
-Senha: postgres
-Host: 127.0.0.1
-Porta: 5432
+```powershell
+Copy-Item .env.testing.example .env.testing
 ```
 
-Caso sua instalação utilize outras credenciais, ajuste somente o `phpunit.xml` ou forneça as variáveis no ambiente.
+Preencha `DB_USERNAME` e `DB_PASSWORD` no `.env.testing` com as credenciais da sua instalação. Em seguida, gere uma chave exclusiva para esse ambiente:
+
+```bash
+php artisan key:generate --env=testing
+```
+
+O `phpunit.xml` contém somente opções seguras da suíte; credenciais ficam no `.env.testing`, que é ignorado pelo Git.
 
 Execute:
 
@@ -624,21 +636,9 @@ Cobertura funcional atual:
 - cálculo do progresso das metas;
 - proteção dos limites de contribuição.
 
-## Testes em MySQL
+## Compatibilidade com PostgreSQL
 
-Crie um banco exclusivo, por exemplo `sistema_financeiro_testing`, e execute a suíte com as variáveis do MySQL definidas no ambiente. O PHP utilizado para executar os testes precisa ter `pdo_mysql` habilitado.
-
-Exemplo no PowerShell:
-
-```powershell
-$env:DB_CONNECTION="mysql"
-$env:DB_HOST="127.0.0.1"
-$env:DB_PORT="3306"
-$env:DB_DATABASE="sistema_financeiro_testing"
-$env:DB_USERNAME="usuario"
-$env:DB_PASSWORD="senha"
-php artisan test
-```
+Para repetir a suíte no PostgreSQL, copie o arquivo de testes e troque apenas `DB_CONNECTION`, `DB_PORT`, `DB_USERNAME` e `DB_PASSWORD`. Mantenha sempre `DB_DATABASE=sistema_financeiro_testing`.
 
 ## Observações de segurança
 
