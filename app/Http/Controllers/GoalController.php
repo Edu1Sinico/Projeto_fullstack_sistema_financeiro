@@ -11,11 +11,13 @@ use Illuminate\Validation\ValidationException;
 
 class GoalController extends Controller
 {
+    /** Lista somente as metas pertencentes ao usuário autenticado. */
     public function index(Request $request): JsonResponse
     {
         return response()->json($request->user()->goals()->latest()->get());
     }
 
+    /** Cria uma meta. O valor atual começará em zero e será calculado pelas contribuições. */
     public function store(Request $request): JsonResponse
     {
         $goal = $request->user()->goals()->create($this->validated($request));
@@ -23,6 +25,7 @@ class GoalController extends Controller
         return response()->json($goal, 201);
     }
 
+    /** Exibe a meta e as transações que contribuíram para ela. */
     public function show(Request $request, int $goal): JsonResponse
     {
         return response()->json(
@@ -30,6 +33,10 @@ class GoalController extends Controller
         );
     }
 
+    /**
+     * Atualiza os dados da meta sem permitir que o novo objetivo fique abaixo
+     * do valor que já foi contribuído.
+     */
     public function update(Request $request, int $goal): JsonResponse
     {
         $goal = $this->findGoal($request, $goal);
@@ -46,6 +53,7 @@ class GoalController extends Controller
         return response()->json($goal);
     }
 
+    /** Exclui a meta; a chave estrangeira remove seus vínculos de contribuição. */
     public function destroy(Request $request, int $goal): JsonResponse
     {
         $this->findGoal($request, $goal)->delete();
@@ -53,6 +61,10 @@ class GoalController extends Controller
         return response()->json(null, 204);
     }
 
+    /**
+     * Cria ou atualiza a contribuição de uma transação para uma meta.
+     * A operação valida tanto o limite da transação quanto o objetivo da meta.
+     */
     public function contribute(Request $request, int $goal): JsonResponse
     {
         $data = $request->validate([
@@ -64,6 +76,7 @@ class GoalController extends Controller
         $transaction = $this->findTransaction($request, $data['transaction_id']);
 
         DB::transaction(function () use ($goal, $transaction, $data) {
+            // Soma o que essa transação já destinou a outras metas.
             $otherContributions = (float) DB::table('goal_transaction')
                 ->where('transaction_id', $transaction->id)
                 ->where('goal_id', '!=', $goal->id)
@@ -75,6 +88,7 @@ class GoalController extends Controller
                 ]);
             }
 
+            // Desconsidera um vínculo anterior com esta transação para permitir sua edição.
             $currentWithoutThisTransaction = (float) DB::table('goal_transaction')
                 ->where('goal_id', $goal->id)
                 ->where('transaction_id', '!=', $transaction->id)
@@ -86,6 +100,7 @@ class GoalController extends Controller
                 ]);
             }
 
+            // Atualiza o vínculo se ele existir ou cria um novo sem duplicar o par de IDs.
             $goal->transactions()->syncWithoutDetaching([
                 $transaction->id => ['contributed_amount' => $data['contributed_amount']],
             ]);
@@ -94,6 +109,7 @@ class GoalController extends Controller
         return response()->json($goal->fresh()->load('transactions'), 201);
     }
 
+    /** Remove apenas o vínculo; a transação financeira e a meta continuam existindo. */
     public function removeContribution(Request $request, int $goal, int $transaction): JsonResponse
     {
         $goal = $this->findGoal($request, $goal);
@@ -103,7 +119,11 @@ class GoalController extends Controller
         return response()->json(null, 204);
     }
 
-    /** @return array{title: string, target_amount: numeric-string|int|float, deadline?: string|null} */
+    /**
+     * Valida os campos usados na criação e edição de uma meta.
+     *
+     * @return array{title: string, target_amount: numeric-string|int|float, deadline?: string|null}
+     */
     private function validated(Request $request): array
     {
         return $request->validate([
@@ -113,11 +133,16 @@ class GoalController extends Controller
         ]);
     }
 
+    /** Busca a meta no relacionamento do usuário para aplicar a autorização por propriedade. */
     private function findGoal(Request $request, int $id): Goal
     {
         return $request->user()->goals()->findOrFail($id);
     }
 
+    /**
+     * Aceita somente transações ligadas a uma conta do usuário atual.
+     * Assim, uma transação alheia não pode financiar a meta.
+     */
     private function findTransaction(Request $request, int $id): Transaction
     {
         return Transaction::whereHas(

@@ -12,8 +12,13 @@ use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
+    /** O Laravel injeta o serviço responsável por criar os tokens JWT. */
     public function __construct(private readonly JwtService $jwt) {}
 
+    /**
+     * Cadastra o usuário e suas categorias iniciais na mesma transação de banco.
+     * Se uma das gravações falhar, o cadastro inteiro é desfeito.
+     */
     public function register(Request $request): JsonResponse
     {
         $data = $request->validate([
@@ -41,6 +46,10 @@ class AuthController extends Controller
         return $this->tokenResponse($user, 201);
     }
 
+    /**
+     * Confere e-mail e senha. O Hash::check compara a senha recebida com o
+     * hash armazenado; a senha em texto puro nunca é salva no banco.
+     */
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
@@ -57,16 +66,22 @@ class AuthController extends Controller
         return $this->tokenResponse($user);
     }
 
+    /** Retorna o usuário que o middleware JWT colocou na requisição. */
     public function me(Request $request): JsonResponse
     {
         return response()->json($request->user());
     }
 
+    /** Gera um novo token para um usuário cujo token atual ainda é válido. */
     public function refresh(Request $request): JsonResponse
     {
         return $this->tokenResponse($request->user());
     }
 
+    /**
+     * Como o JWT é stateless, o servidor não mantém sessão para destruir.
+     * O front-end deve apagar o token recebido anteriormente.
+     */
     public function logout(): JsonResponse
     {
         return response()->json([
@@ -74,6 +89,7 @@ class AuthController extends Controller
         ]);
     }
 
+    /** Monta a resposta padronizada usada pelo cadastro e pelo login. */
     private function tokenResponse(User $user, int $status = 200): JsonResponse
     {
         return response()->json([

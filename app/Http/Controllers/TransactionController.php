@@ -13,6 +13,10 @@ use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
 {
+    /**
+     * Lista as transações do usuário e aplica filtros opcionais de conta,
+     * tipo, data exata ou intervalo de datas.
+     */
     public function index(Request $request): JsonResponse
     {
         $filters = $request->validate([
@@ -24,7 +28,9 @@ class TransactionController extends Controller
         ]);
 
         $transactions = Transaction::query()
+            // Carrega conta e categoria junto da consulta para evitar consultas repetidas.
             ->with(['account:id,name', 'category:id,name,type'])
+            // O usuário só enxerga transações ligadas às próprias contas.
             ->whereHas('account', fn ($query) => $query->where('user_id', $request->user()->id))
             ->when($filters['account_id'] ?? null, fn ($query, $id) => $query->where('account_id', $id))
             ->when($filters['type'] ?? null, fn ($query, $type) => $query->where('type', $type))
@@ -38,11 +44,16 @@ class TransactionController extends Controller
         return response()->json($transactions);
     }
 
+    /**
+     * Cria uma transação e atualiza o saldo da conta de forma atômica.
+     * Se qualquer etapa falhar, DB::transaction desfaz toda a operação.
+     */
     public function store(Request $request): JsonResponse
     {
         $data = $this->validated($request);
 
         $transaction = DB::transaction(function () use ($request, $data) {
+            // lockForUpdate impede duas requisições de alterarem o mesmo saldo simultaneamente.
             $account = $this->lockedAccount($request, $data['account_id']);
             $this->categoryForUser($request, $data['category_id'], $data['type']);
 
@@ -56,6 +67,7 @@ class TransactionController extends Controller
         return response()->json($transaction->load('account:id,name', 'category:id,name,type'), 201);
     }
 
+    /** Retorna a transação com sua conta, categoria e eventuais metas relacionadas. */
     public function show(Request $request, int $transaction): JsonResponse
     {
         return response()->json(
@@ -63,6 +75,10 @@ class TransactionController extends Controller
         );
     }
 
+    /**
+     * Edita uma transação sem corromper o saldo: primeiro desfaz o efeito antigo
+     * e depois aplica o novo. Também permite transferir a transação para outra conta.
+     */
     public function update(Request $request, int $transaction): JsonResponse
     {
         $data = $this->validated($request);
@@ -71,6 +87,7 @@ class TransactionController extends Controller
             $transaction = $this->findTransaction($request, $transaction);
             $this->categoryForUser($request, $data['category_id'], $data['type']);
 
+            // O novo valor precisa continuar cobrindo tudo o que já foi destinado às metas.
             $contributed = (float) $transaction->goals()->sum('contributed_amount');
             if ($contributed > (float) $data['amount']) {
                 throw ValidationException::withMessages([
@@ -78,6 +95,7 @@ class TransactionController extends Controller
                 ]);
             }
 
+            // Reverte a receita/despesa original para reconstruir o saldo anterior.
             $oldAccount = $this->lockedAccount($request, $transaction->account_id);
             $oldRevertedBalance = $this->newBalance(
                 $oldAccount->balance,
@@ -87,10 +105,12 @@ class TransactionController extends Controller
             );
 
             if ($oldAccount->id === (int) $data['account_id']) {
+                // Na mesma conta, aplica o novo efeito sobre o saldo já revertido.
                 $oldAccount->update([
                     'balance' => $this->newBalance($oldRevertedBalance, $data['type'], $data['amount']),
                 ]);
             } else {
+                // Em contas diferentes, corrige a antiga e aplica o valor na nova conta.
                 $newAccount = $this->lockedAccount($request, $data['account_id']);
                 $oldAccount->update(['balance' => $oldRevertedBalance]);
                 $newAccount->update([
@@ -106,6 +126,10 @@ class TransactionController extends Controller
         return response()->json($transaction->load('account:id,name', 'category:id,name,type'));
     }
 
+    /**
+     * Exclui a transação somente depois de reverter seu efeito no saldo.
+     * Uma receita já gasta não pode ser removida se isso produzir saldo negativo.
+     */
     public function destroy(Request $request, int $transaction): JsonResponse
     {
         DB::transaction(function () use ($request, $transaction) {
@@ -128,6 +152,9 @@ class TransactionController extends Controller
     }
 
     /**
+     * Valida o formato comum aos métodos store e update.
+     * A existência e a propriedade da conta/categoria são verificadas separadamente.
+     *
      * @return array{
      *     account_id: int,
      *     category_id: int,
@@ -149,6 +176,10 @@ class TransactionController extends Controller
         ]);
     }
 
+    /**
+     * Localiza a transação por meio de uma conta do usuário atual.
+     * IDs inexistentes ou de terceiros recebem a mesma resposta 404.
+     */
     private function findTransaction(Request $request, int $id): Transaction
     {
         return Transaction::whereHas(
@@ -157,11 +188,16 @@ class TransactionController extends Controller
         )->findOrFail($id);
     }
 
+    /** Busca e bloqueia a conta até o término da transação de banco atual. */
     private function lockedAccount(Request $request, int $id): Account
     {
         return $request->user()->accounts()->lockForUpdate()->findOrFail($id);
     }
 
+    /**
+     * Verifica propriedade e coerência: uma categoria de receita não pode ser
+     * usada em uma despesa, e vice-versa.
+     */
     private function categoryForUser(Request $request, int $id, string $type): Category
     {
         $category = $request->user()->categories()->findOrFail($id);
@@ -175,6 +211,10 @@ class TransactionController extends Controller
         return $category;
     }
 
+    /**
+     * Calcula o novo saldo. Receita soma e despesa subtrai; com reverse=true
+     * o efeito é invertido para permitir edição ou exclusão segura.
+     */
     private function newBalance(string|float $balance, string $type, string|float $amount, bool $reverse = false): string
     {
         $effect = $type === 'income' ? (float) $amount : -(float) $amount;

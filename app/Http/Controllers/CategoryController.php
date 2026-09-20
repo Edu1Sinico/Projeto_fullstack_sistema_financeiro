@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
+    /** Lista as categorias do usuário, agrupadas por tipo e nome. */
     public function index(Request $request): JsonResponse
     {
         return response()->json(
@@ -16,6 +17,7 @@ class CategoryController extends Controller
         );
     }
 
+    /** Cria uma categoria de receita (income) ou despesa (expense). */
     public function store(Request $request): JsonResponse
     {
         $data = $this->validated($request);
@@ -24,11 +26,16 @@ class CategoryController extends Controller
         return response()->json($category, 201);
     }
 
+    /** Retorna uma categoria pertencente ao usuário autenticado. */
     public function show(Request $request, int $category): JsonResponse
     {
         return response()->json($this->findCategory($request, $category));
     }
 
+    /**
+     * Atualiza a categoria. Seu tipo não pode mudar depois de utilizada,
+     * pois isso deixaria transações antigas com uma classificação incoerente.
+     */
     public function update(Request $request, int $category): JsonResponse
     {
         $category = $this->findCategory($request, $category);
@@ -45,6 +52,10 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
+    /**
+     * Exclui somente categorias sem transações. O status 409 indica que o
+     * registro existe, mas seu estado atual impede a operação.
+     */
     public function destroy(Request $request, int $category): JsonResponse
     {
         $category = $this->findCategory($request, $category);
@@ -60,7 +71,12 @@ class CategoryController extends Controller
         return response()->json(null, 204);
     }
 
-    /** @return array{name: string, type: string} */
+    /**
+     * Reúne as regras compartilhadas por criação e edição.
+     * O nome é único por usuário e tipo, mas pode existir para outro usuário.
+     *
+     * @return array{name: string, type: string}
+     */
     private function validated(Request $request, ?int $ignoreId = null): array
     {
         return $request->validate([
@@ -74,6 +90,7 @@ class CategoryController extends Controller
         ]);
     }
 
+    /** Busca a categoria dentro do relacionamento do usuário para impedir acesso alheio. */
     private function findCategory(Request $request, int $id): Category
     {
         return $request->user()->categories()->findOrFail($id);
