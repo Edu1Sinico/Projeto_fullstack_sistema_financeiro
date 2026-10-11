@@ -27,7 +27,7 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
-        $user = DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data) {
             $user = User::create($data);
 
             $user->categories()->createMany([
@@ -40,10 +40,10 @@ class AuthController extends Controller
                 ['name' => 'Saúde', 'type' => 'expense'],
             ]);
 
-            return $user;
+            // O token é criado antes do commit. Se a configuração JWT estiver
+            // inválida, a exceção desfaz também o usuário e suas categorias.
+            return $this->tokenResponse($user, 201);
         });
-
-        return $this->tokenResponse($user, 201);
     }
 
     /**
