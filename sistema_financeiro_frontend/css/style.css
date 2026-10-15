@@ -1,0 +1,58 @@
+:root {
+    --cor-principal: #292E36;
+    --cor-secundaria: #FF8000;
+    --cor-terciaria: #FEFEFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estrutura geral da aplicação */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menu lateral */
+.sidebar {
+    width: 245px;
+    height: 100vh;
+    background-color: var(--cor-principal);
+
+    display: flex;
+    flex-direction: column;
+
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+}
+
+/* Região à direita do menu */
+.app-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+.app-header {
+    height: 65px;
+    margin: 0px 35px;
+    background-color: #ffffff;
+    border-bottom: 3px solid #EAEAEA;
+}
+
+/* Conteúdo principal */
+.app-main {
+    flex: 1;
+    padding: 28px;
+    background-color: #ffffff;
+}
