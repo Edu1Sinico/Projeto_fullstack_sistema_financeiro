@@ -2,17 +2,17 @@
     --cor-principal: #292E36;
     --cor-secundaria: #FF8000;
     --cor-terciaria: #FEFEFF;
+    --cor-quartenaria: #4C5666;
 }
 
 /* Topo do menu lateral */
 .sidebar-top {
     padding: 24px 20px;
-    height: 25%;
+    gap: 32px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 /* Temporário */
@@ -21,7 +21,7 @@
 
     width: 100px;
     height: 100px;
-    border-radius: 100%;
+    border-radius: 50%;
 
     display: flex;
     align-items: center;
@@ -31,7 +31,7 @@
 .text-section {
     width: 100%;
     padding-bottom: 4px;
-    border-bottom: 1px solid #4C5666;
+    border-bottom: 1px solid var(--cor-quartenaria);
 
     /* Precisa ser "Poppins" */
     /* font-family: poppins; */
@@ -44,31 +44,130 @@
 
 .sidebar-navigation {
     padding: 0px 20px;
-    height: 60%;
+    gap: 10px;
 
     display: flex;
     flex-direction: column;
 }
 
-.page-btn{
-    padding: 10px 20px;
-    margin-bottom: 10px;
+.page-btn {
+    padding: 10px;
     border-radius: 5px;
-    
-    font-weight: bold;
+
+    font-size: 16px;
     color: #FFFFFF;
     text-decoration: none;
 
-    /* transition: 0.2s ease-in-out; */
+    transition: 0.15s ease-in-out;
 }
 
-.page-btn:hover{
+.page-btn i {
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.page-btn:hover {
+    background-color: var(--cor-secundaria);
+}
+
+.page-btn.active {
     background-color: var(--cor-secundaria);
 }
 
 /* Base do menu lateral */
 
 .sidebar-bottom {
+    padding: 24px 20px;
     margin-top: auto;
-    padding: 20;
+}
+
+.account-section,
+.exit-section {
+    width: 100%;
+    height: 35px;
+    margin: 10px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.account-info {
+    display: flex;
+    align-items: center;
+}
+
+.account-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--cor-secundaria);
+}
+
+.account-profile i {
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.account-info p {
+    color: #FFFFFF;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.config-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.config-btn i {
+    color: #FFFFFF;
+    font-size: 25px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.config-btn:hover {
+    background-color: var(--cor-quartenaria);
+}
+
+.exit-section button {
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    border: none;
+    border-radius: 5px;
+    gap: 12px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.exit-section button i {
+    font-size: 20px;
+}
+
+.exit-section button:hover {
+    background-color: var(--cor-quartenaria);
 }
