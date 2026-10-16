@@ -1,7 +1,13 @@
 :root {
-    --cor-principal: #292E36;
-    --cor-secundaria: #FF8000;
-    --cor-terciaria: #FEFEFF;
+    --sidebar-bg: #292E36;
+    --accent-color: #FF8000;
+    --content-bg: #FEFEFF;
+    --border-color: #4C5666;
+    --font-color-darkgray: #757575;
+    --font-color-lightgray: #bebebe;
+
+    --icon-size: 20px;
+    --icon-gap: 12px;
 }
 
 * {
@@ -24,7 +30,7 @@ body {
 .sidebar {
     width: 300px;
     height: 100vh;
-    background-color: var(--cor-principal);
+    background-color: var(--sidebar-bg);
 
     display: flex;
     flex-direction: column;
@@ -46,6 +52,11 @@ body {
 .app-header {
     height: 65px;
     margin: 0px 35px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
     background-color: #ffffff;
     border-bottom: 3px solid #EAEAEA;
 }

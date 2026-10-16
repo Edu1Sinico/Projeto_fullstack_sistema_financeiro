@@ -1,0 +1,65 @@
+/* Edição do dropdown */
+.profile-dropdown {
+    width: 350px;
+    padding: 15px;
+
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: none;
+
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Informações do usuário */
+.profile-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--accent-color);
+}
+
+.profile-avatar i {
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.profile-title {
+    font-weight: bold;
+    margin: 0;
+}
+
+.profile-details {
+    min-width: 0;
+}
+
+.profile-description {
+    font-size: small;
+    overflow-wrap: anywhere;
+    color: var(--font-color-lightgray);
+}
+
+/* Seção das opções */
+.profile-dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--font-color-darkgray);
+}
+
+.profile-dropdown .dropdown-item i {
+    font-size: var(--icon-size);
+    line-height: 1;
+    flex-shrink: 0;
+}

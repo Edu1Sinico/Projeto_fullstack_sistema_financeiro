@@ -1,10 +1,3 @@
-:root {
-    --cor-principal: #292E36;
-    --cor-secundaria: #FF8000;
-    --cor-terciaria: #FEFEFF;
-    --cor-quartenaria: #4C5666;
-}
-
 /* Topo do menu lateral */
 .sidebar-top {
     padding: 24px 20px;
@@ -28,10 +21,18 @@
     justify-content: center;
 }
 
+.logo h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
 .text-section {
     width: 100%;
+    margin: 0;
     padding-bottom: 4px;
-    border-bottom: 1px solid var(--cor-quartenaria);
+    border-bottom: 1px solid var(--border-color);
 
     /* Precisa ser "Poppins" */
     /* font-family: poppins; */
@@ -53,25 +54,31 @@
 .page-btn {
     padding: 10px;
     border-radius: 5px;
+    line-height: 1.2;
+
+    display: flex;
+    align-items: center;
+    gap: var(--icon-gap);
 
     font-size: 16px;
     color: #FFFFFF;
     text-decoration: none;
 
-    transition: 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .page-btn i {
+    font-size: var(--icon-size);
     line-height: 1;
     flex-shrink: 0;
 }
 
 .page-btn:hover {
-    background-color: var(--cor-secundaria);
+    background-color: var(--accent-color);
 }
 
 .page-btn.active {
-    background-color: var(--cor-secundaria);
+    background-color: var(--accent-color);
 }
 
 /* Base do menu lateral */
@@ -107,7 +114,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: var(--cor-secundaria);
+    background-color: var(--accent-color);
 }
 
 .account-profile i {
@@ -119,6 +126,7 @@
     color: #FFFFFF;
     font-size: 12px;
     padding-left: 5px;
+    margin: 0;
 }
 
 .config-btn {
@@ -143,16 +151,16 @@
 }
 
 .config-btn:hover {
-    background-color: var(--cor-quartenaria);
+    background-color: var(--border-color);
 }
 
-.exit-section button {
+.exit-btn {
     width: 100%;
     height: 100%;
     padding-left: 5px;
     border: none;
     border-radius: 5px;
-    gap: 12px;
+    gap: var(--icon-gap);
 
     display: flex;
     align-items: center;
@@ -164,10 +172,10 @@
     cursor: pointer;
 }
 
-.exit-section button i {
-    font-size: 20px;
+.exit-btn i {
+    font-size: var(--icon-size);
 }
 
-.exit-section button:hover {
-    background-color: var(--cor-quartenaria);
+.exit-btn:hover {
+    background-color: var(--border-color);
 }
