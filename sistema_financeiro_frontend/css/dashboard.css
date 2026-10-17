@@ -1,0 +1,110 @@
+.dashboard {
+    padding: 25px 35px;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Seção do topo do dashboard */
+.dashboard-top-section {
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+/* Seção dos filtros */
+
+.filter-section {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-trigger {
+    width: 150px;
+    height: 34px;
+    padding: 5px 8px;
+    border: 1px solid var(--font-color-lightgray);
+    border-radius: 5px;
+    gap: 8px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--font-color-gray);
+    background-color: var(--content-bg);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter-trigger i {
+    font-size: var(--icon-size);
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.filter-trigger .filter-arrow {
+    color: var(--font-color-darkgray);
+    margin-left: auto;
+    font-size: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.filter-trigger.show .filter-arrow {
+    transform: rotate(-180deg);
+}
+
+.filter-menu {
+    min-width: 240px;
+    padding: 15px;
+    margin-top: 6px;
+
+    border: 1px solid var(--font-color-lightgray);
+    border-radius: 10px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+.filter-menu-title {
+    color: var(--font-color-darkgray);
+    margin: 0px;
+}
+
+.dashboard .form-check-label,
+.period-fields label {
+    font-size: 14px;
+    color: var(--font-color-darkgray);
+}
+
+.dashboard .form-check-input,
+.dashboard .form-control {
+    cursor: pointer;
+}
+
+.dashboard .form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.dashboard .form-check-input:focus,
+.dashboard .form-control:focus {
+    border-color: #f8cca0;
+    box-shadow: 0 0 0 .25rem #f8cca0;
+}
+
+.period-menu {
+    min-width: 360px;
+}
+
+.period-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.dashboard .form-control {
+    color: var(--font-color-gray);
+
+}

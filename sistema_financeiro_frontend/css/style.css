@@ -4,7 +4,8 @@
     --content-bg: #FEFEFF;
     --border-color: #4C5666;
     --font-color-darkgray: #757575;
-    --font-color-lightgray: #bebebe;
+    --font-color-gray: #CACACA; /* Fonte padrão para filtros */
+    --font-color-lightgray: #BEBEBE;
 
     --icon-size: 20px;
     --icon-gap: 12px;
@@ -66,4 +67,15 @@ body {
     flex: 1;
     padding: 28px;
     background-color: #ffffff;
+}
+
+/* Outros componentes */
+
+.title-section {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--sidebar-bg);
 }

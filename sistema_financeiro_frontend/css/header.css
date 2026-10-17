@@ -48,3 +48,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.profile-dropdown .dropdown-item:active{
+    color: #000000;
+    background-color: var(--font-color-lightgray);
+}
