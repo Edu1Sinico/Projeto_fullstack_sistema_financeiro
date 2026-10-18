@@ -9,6 +9,9 @@
 
     --icon-size: 20px;
     --icon-gap: 12px;
+
+    --green-indicator: #34A641;
+    --red-indicator: #BD2E2E;
 }
 
 * {
