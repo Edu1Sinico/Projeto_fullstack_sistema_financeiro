@@ -228,7 +228,8 @@
     padding: 12px;
 }
 
-.panel-filters {
+.panel-filters,
+.panel-summary {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -318,7 +319,8 @@
     margin: 0px;
 }
 
-.transaction-filter-menu li button:active {
+.transaction-filter-menu li button:active,
+.goal-filter-menu li button:active {
     background-color: var(--accent-color);
 }
 
@@ -375,4 +377,214 @@
     font-size: 14px;
     color: var(--font-color-darkgray);
     white-space: nowrap;
+}
+
+/* Painel de metas */
+
+/* Filtro dos prazos */
+.goal-filter {
+    width: 100%;
+}
+
+.goal-filter-btn {
+    width: 50%;
+    height: 30px;
+    padding: 5px 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    background-color: var(--content-bg);
+    border: 1px solid var(--font-color-lightgray);
+    border-radius: 5px;
+
+    color: var(--font-color-gray);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.goal-filter-btn .filter-arrow {
+    font-size: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.goal-filter-btn.show .filter-arrow {
+    transform: rotate(180deg);
+}
+
+.goal-filter-menu {
+    min-width: 200px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.goal-filter-menu .dropdown-item.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* Lista de metas */
+
+.goals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Card individual */
+
+.goal-item {
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    background-color: var(--content-bg);
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+}
+
+/* Cabeçalho da meta */
+
+.goal-item-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.goal-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.goal-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sidebar-bg);
+    overflow-wrap: anywhere;
+}
+
+.goal-deadline {
+    font-size: 11px;
+    color: var(--font-color-darkgray);
+}
+
+/* Botão de detalhes */
+
+.goal-details-btn {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+
+    color: var(--font-color-lightgray);
+    cursor: pointer;
+}
+
+.goal-details-btn:hover {
+    background-color: #EAEAEA;
+    color: var(--sidebar-bg);
+}
+
+/* Progresso */
+
+.goal-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.goal-values {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.goal-current-value {
+    color: var(--green-indicator);
+}
+
+.goal-target-value {
+    color: var(--font-color-darkgray);
+}
+
+.goal-progress-bar {
+    height: 12px;
+    border-radius: 10px;
+}
+
+.goal-progress-bar .progress-bar {
+    background-color: var(--green-indicator);
+}
+
+/* Painel de contas */
+.balance-section {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: var(--sidebar-bg);
+}
+
+/* Lista de transações */
+.accounts-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    padding: 10px 5px;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.account-description {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px;
+    border-left: 3px solid #EAEAEA;
+}
+
+.account-title {
+    color: var(--sidebar-bg);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+    min-width: 0;
+    flex: 1;
+}
+
+.account-type {
+    color: var(--font-color-darkgray);
+    font-size: 11px;
+}
+
+.account-value {
+    color: var(--sidebar-bg);
+    font-size: 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.account-value.negative {
+    color: var(--red-indicator);
 }

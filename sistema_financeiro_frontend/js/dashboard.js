@@ -27,3 +27,32 @@ periodOptions.forEach(option => {
     });
 
 });
+
+// Filtro de prazos das metas
+const goalFilter = document.querySelector(
+    ".goal-filter-btn:has(.selected-goal-order)"
+);
+
+const selectedGoalOrder = goalFilter.querySelector(
+    ".selected-goal-order"
+);
+
+const goalOrderOptions = goalFilter
+    .closest(".goal-filter")
+    .querySelectorAll(".dropdown-item");
+
+goalOrderOptions.forEach(option => {
+
+    option.addEventListener("click", () => {
+
+        selectedGoalOrder.textContent = option.textContent.trim();
+
+        goalOrderOptions.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        option.classList.add("active");
+
+    });
+
+});
