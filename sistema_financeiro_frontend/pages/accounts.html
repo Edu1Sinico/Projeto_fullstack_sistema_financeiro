@@ -1,0 +1,119 @@
+<section class="accounts">
+
+    <!-- Título da página -->
+    <div class="main-top-section">
+        <h1 class="title-section">Contas</h1>
+    </div>
+
+    <!-- Barra de filtros -->
+    <div class="accounts-toolbar toolbar">
+
+        <!-- Pesquisa -->
+        <div class="accounts-search search-bar">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Pesquisar" aria-label="Pesquisar contas">
+        </div>
+
+        <!-- Filtro de data -->
+        <div class="dropdown accounts-filter filter">
+            <!-- Dropdown de data -->
+            <button type="button" class="date-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span>Data</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+        </div>
+
+        <!-- Filtro de tipo -->
+        <div class="dropdown accounts-filter filter">
+            <!-- Dropdown de tipo -->
+            <button type="button" class="type-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span>Tipo</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+        </div>
+
+        <!-- Filtro de status -->
+        <div class="dropdown accounts-filter filter">
+            <!-- Dropdown de status -->
+            <button type="button" class="status-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span>Status</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+        </div>
+
+        <!-- Adicionar conta -->
+        <button type="button" class="add-account-btn add-btn">
+            <span>+ Adicionar conta</span>
+        </button>
+
+    </div>
+
+    <!-- Tabela de contas -->
+    <div class="accounts-table-section table-section">
+
+        <div class="table-responsive">
+            <table class="table data-table accounts-table">
+
+                <thead>
+                    <tr class="table-header">
+                        <th scope="col">Data</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Saldo atual</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="table-row">
+                        <td>13/10/2026</td>
+                        <td>Conta do banco</td>
+                        <td>Conta bancária</td>
+                        <td>Ativo</td>
+                        <td>R$ 950,00</td>
+                        <td>
+                            <button type="button" class="edit-btn">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button type="button" class="delete-btn">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row">
+                        <td>13/10/2026</td>
+                        <td>Conta do teste</td>
+                        <td>Carteira</td>
+                        <td>Inativo</td>
+                        <td>R$ 0,00</td>
+                        <td>
+                            <button type="button" class="edit-btn" aria-label="Editar Conta do banco">
+                                <i class="bi bi-pencil" aria-hidden="true"></i>
+                            </button>
+
+                            <button type="button" class="delete-btn" aria-label="Excluir Conta do banco">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <p>Não há contas cadastradas</p>
+        </div> -->
+
+    </div>
+
+
+</section>

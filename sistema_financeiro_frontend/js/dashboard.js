@@ -1,58 +1,58 @@
-// Filtro de período das transações
+function initDashboard() {
 
-const periodFilter = document.querySelector(
-    ".transaction-filter-btn:has(.selected-period)"
-);
+    // Filtro de período das transações
+    const periodFilter = document.querySelector(
+        ".transaction-filter-btn:has(.selected-period)"
+    );
 
-const selectedPeriod = periodFilter.querySelector(
-    ".selected-period"
-);
+    if (periodFilter) {
+        const selectedPeriod = periodFilter.querySelector(
+            ".selected-period"
+        );
 
-const periodOptions = periodFilter
-    .closest(".transaction-filter")
-    .querySelectorAll(".dropdown-item");
+        const periodOptions = periodFilter
+            .closest(".transaction-filter")
+            .querySelectorAll(".dropdown-item");
 
-periodOptions.forEach(option => {
+        periodOptions.forEach(option => {
+            option.addEventListener("click", () => {
 
-    option.addEventListener("click", () => {
+                selectedPeriod.textContent = option.textContent.trim();
 
-        selectedPeriod.textContent = option.textContent.trim();
+                periodOptions.forEach(item => {
+                    item.classList.remove("active");
+                });
 
-        periodOptions.forEach(item => {
-            item.classList.remove("active");
+                option.classList.add("active");
+            });
         });
+    }
 
-        option.classList.add("active");
+    // Filtro de prazos das metas
+    const goalFilter = document.querySelector(
+        ".goal-filter-btn:has(.selected-goal-order)"
+    );
 
-    });
+    if (goalFilter) {
+        const selectedGoalOrder = goalFilter.querySelector(
+            ".selected-goal-order"
+        );
 
-});
+        const goalOrderOptions = goalFilter
+            .closest(".goal-filter")
+            .querySelectorAll(".dropdown-item");
 
-// Filtro de prazos das metas
-const goalFilter = document.querySelector(
-    ".goal-filter-btn:has(.selected-goal-order)"
-);
+        goalOrderOptions.forEach(option => {
+            option.addEventListener("click", () => {
 
-const selectedGoalOrder = goalFilter.querySelector(
-    ".selected-goal-order"
-);
+                selectedGoalOrder.textContent = option.textContent.trim();
 
-const goalOrderOptions = goalFilter
-    .closest(".goal-filter")
-    .querySelectorAll(".dropdown-item");
+                goalOrderOptions.forEach(item => {
+                    item.classList.remove("active");
+                });
 
-goalOrderOptions.forEach(option => {
-
-    option.addEventListener("click", () => {
-
-        selectedGoalOrder.textContent = option.textContent.trim();
-
-        goalOrderOptions.forEach(item => {
-            item.classList.remove("active");
+                option.classList.add("active");
+            });
         });
-
-        option.classList.add("active");
-
-    });
-
-});
+    }
+}

@@ -1,0 +1,58 @@
+/* Seção da tabela de contas */
+.table-section {
+    margin-top: 15px;
+    padding: 15px;
+
+    min-height: 500px;
+
+    background-color: var(--content-bg);
+    border-radius: 10px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tabela */
+.data-table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.table-header {
+    border-bottom: 2px solid;
+    border-color: #EAEAEA;
+}
+
+.data-table th {
+    font-size: 14.5px;
+    font-weight: bold;
+    color: var(--font-color-darkgray);
+}
+
+.data-table td {
+    font-size: 12px;
+    color: var(--font-color-gray);
+}
+
+.data-table td button {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+
+    background-color: transparent;
+    border: none;
+    color: var(--font-color-lightgray);
+}
+
+.data-table td button:hover {
+    background-color: #EAEAEA;
+    color: var(--sidebar-bg);
+}
+
+.data-table .delete-btn:hover {
+    background-color: #FCE8E8;
+    color: var(--red-indicator);
+}
+
+.data-table td button i {
+    font-size: 15px;
+}
