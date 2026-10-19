@@ -22,6 +22,20 @@
                 <span>Data</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
+
+            <div class="dropdown-menu date-filter-menu">
+
+                <h6 class="filter-menu-title">Selecionar data</h6>
+
+                <hr class="dropdown-divider">
+
+                <!-- Campo de data -->
+                <input type="date" id="account-date-filter" class="form-control date-filter-input" aria-label="Filtrar contas por data">
+
+                <!-- Botão para limpar filtro -->
+                 <button type="button" class="clear-filter-btn">Limpar</button>
+
+            </div>
         </div>
 
         <!-- Filtro de tipo -->
@@ -52,7 +66,7 @@
     </div>
 
     <!-- Tabela de contas -->
-    <div class="accounts-table-section table-section">
+    <div class="accounts-table-section table-section is-empty">
 
         <div class="table-responsive">
             <table class="table data-table accounts-table">
@@ -108,6 +122,7 @@
 
         </div>
 
+        <!-- Aparecer no meio da tabela quando não ter nenhum elemento nela. -->
         <!-- <div class="empty-state">
             <i class="bi bi-inbox"></i>
             <p>Não há contas cadastradas</p>

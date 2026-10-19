@@ -11,6 +11,15 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.table-section.is-empty {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-section.is-empty .empty-state {
+    flex: 1;
+}
+
 /* Tabela */
 .data-table {
     width: 100%;
@@ -31,6 +40,11 @@
 .data-table td {
     font-size: 12px;
     color: var(--font-color-gray);
+}
+
+.data-table th,
+.data-table td {
+    white-space: nowrap;
 }
 
 .data-table td button {
