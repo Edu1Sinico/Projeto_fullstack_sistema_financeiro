@@ -85,7 +85,7 @@
     transform: rotate(-180deg);
 }
 
-.date-filter-menu {
+.filter-menu-section {
     min-width: 250px;
     padding: 15px;
 
@@ -100,7 +100,7 @@
     cursor: pointer;
 }
 
-.date-filter-input:focus {
+.date-filter-input:focus, .form-check-input:focus {
     color: var(--font-color-gray);
     border-color: #f8cca0;
     box-shadow: 0 0 0 .25rem #f8cca0;
@@ -122,6 +122,17 @@
 .clear-filter-btn:hover{
     background-color: #e87400;
 }
+
+.form-check-input{
+    cursor:pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+
 
 .add-btn {
     width: 100%;

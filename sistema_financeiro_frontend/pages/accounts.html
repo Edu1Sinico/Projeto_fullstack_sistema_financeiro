@@ -19,21 +19,22 @@
             <!-- Dropdown de data -->
             <button type="button" class="date-filter-btn filter-btn" data-bs-toggle="dropdown"
                 data-bs-auto-close="outside" aria-expanded="false">
-                <span>Data</span>
+                <span class="selected-date">Data</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
 
-            <div class="dropdown-menu date-filter-menu">
+            <div class="dropdown-menu date-filter-menu filter-menu-section">
 
                 <h6 class="filter-menu-title">Selecionar data</h6>
 
                 <hr class="dropdown-divider">
 
                 <!-- Campo de data -->
-                <input type="date" id="account-date-filter" class="form-control date-filter-input" aria-label="Filtrar contas por data">
+                <input type="date" id="a    ccount-date-filter" class="form-control date-filter-input"
+                    aria-label="Filtrar contas por data">
 
                 <!-- Botão para limpar filtro -->
-                 <button type="button" class="clear-filter-btn">Limpar</button>
+                <button type="button" class="clear-filter-btn">Limpar</button>
 
             </div>
         </div>
@@ -46,6 +47,47 @@
                 <span>Tipo</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
+
+            <div class="dropdown-menu type-filter-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione o tipo</h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="all-types" checked>
+
+                    <label class="form-check-label" for="all-types">
+                        Todos os tipos
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checking-type">
+
+                    <label class="form-check-label" for="checking-type">
+                        Conta bancária
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="savings-type">
+
+                    <label class="form-check-label" for="savings-type">
+                        Poupança
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wallet-type">
+
+                    <label class="form-check-label" for="wallet-type">
+                        Carteira
+                    </label>
+                </div>
+
+            </div>
+
         </div>
 
         <!-- Filtro de status -->
@@ -56,6 +98,38 @@
                 <span>Status</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
+
+            <div class="dropdown-menu type-filter-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione o tipo</h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="all-status" checked>
+
+                    <label class="form-check-label" for="all-types">
+                        Todos os tipos
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="activate-status">
+
+                    <label class="form-check-label" for="activate-status">
+                        Ativo
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inactivate-status">
+
+                    <label class="form-check-label" for="inactivate-status">
+                        Inativo
+                    </label>
+                </div>
+            </div>
+
         </div>
 
         <!-- Adicionar conta -->
