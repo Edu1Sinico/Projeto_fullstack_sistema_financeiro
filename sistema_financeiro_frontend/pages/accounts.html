@@ -15,11 +15,11 @@
         </div>
 
         <!-- Filtro de data -->
-        <div class="dropdown accounts-filter filter">
+        <div class="dropdown accounts-date-filter filter">
             <!-- Dropdown de data -->
             <button type="button" class="date-filter-btn filter-btn" data-bs-toggle="dropdown"
                 data-bs-auto-close="outside" aria-expanded="false">
-                <span class="selected-date">Data</span>
+                <span class="selected-account-date">Data</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
 
@@ -30,7 +30,7 @@
                 <hr class="dropdown-divider">
 
                 <!-- Campo de data -->
-                <input type="date" id="a    ccount-date-filter" class="form-control date-filter-input"
+                <input type="date" id="account-date-filter" class="form-control date-filter-input"
                     aria-label="Filtrar contas por data">
 
                 <!-- Botão para limpar filtro -->
@@ -40,11 +40,11 @@
         </div>
 
         <!-- Filtro de tipo -->
-        <div class="dropdown accounts-filter filter">
+        <div class="dropdown accounts-filter filter account-type-filter">
             <!-- Dropdown de tipo -->
             <button type="button" class="type-filter-btn filter-btn" data-bs-toggle="dropdown"
                 data-bs-auto-close="outside" aria-expanded="false">
-                <span>Tipo</span>
+                <span class="selected-account-type">Tipo</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
 
@@ -91,17 +91,17 @@
         </div>
 
         <!-- Filtro de status -->
-        <div class="dropdown accounts-filter filter">
+        <div class="dropdown accounts-filter filter account-status-filter">
             <!-- Dropdown de status -->
             <button type="button" class="status-filter-btn filter-btn" data-bs-toggle="dropdown"
                 data-bs-auto-close="outside" aria-expanded="false">
-                <span>Status</span>
+                <span class="selected-account-status">Status</span>
                 <i class="bi bi-chevron-down filter-arrow"></i>
             </button>
 
             <div class="dropdown-menu type-filter-menu filter-menu-section">
 
-                <h6 class="filter-menu-title">Selecione o tipo</h6>
+                <h6 class="filter-menu-title">Selecione um status</h6>
 
                 <hr class="dropdown-divider">
 
@@ -109,7 +109,7 @@
                     <input class="form-check-input" type="checkbox" id="all-status" checked>
 
                     <label class="form-check-label" for="all-types">
-                        Todos os tipos
+                        Todos os status
                     </label>
                 </div>
 
@@ -133,7 +133,7 @@
         </div>
 
         <!-- Adicionar conta -->
-        <button type="button" class="add-account-btn add-btn">
+        <button type="button" class="add-account-btn add-btn" data-bs-toggle="modal" data-bs-target="#accountModal">
             <span>+ Adicionar conta</span>
         </button>
 
@@ -157,7 +157,9 @@
                 </thead>
 
                 <tbody>
-                    <tr class="table-row">
+                    <tr class="table-row" data-name="Conta do banco" data-date="2026-10-13" data-type="Conta bancária"
+                        data-status="Ativo">
+
                         <td>13/10/2026</td>
                         <td>Conta do banco</td>
                         <td>Conta bancária</td>
@@ -173,9 +175,11 @@
                         </td>
                     </tr>
 
-                    <tr class="table-row">
+                    <tr class="table-row" data-name="Conta de teste" data-date="2026-10-13" data-type="Carteira"
+                        data-status="Inativo">
+
                         <td>13/10/2026</td>
-                        <td>Conta do teste</td>
+                        <td>Conta de teste</td>
                         <td>Carteira</td>
                         <td>Inativo</td>
                         <td>R$ 0,00</td>
@@ -197,12 +201,103 @@
         </div>
 
         <!-- Aparecer no meio da tabela quando não ter nenhum elemento nela. -->
-        <!-- <div class="empty-state">
+        <div class="empty-state accounts-empty-state d-none">
             <i class="bi bi-inbox"></i>
-            <p>Não há contas cadastradas</p>
-        </div> -->
+            <p class="accounts-empty-message">Não há contas cadastradas</p>
+        </div>
 
     </div>
 
 
 </section>
+
+<!-- Modal de cadastro de contas -->
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalTitle" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content account-modal system-modal">
+
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+
+                <h2 class="modal-title" id="accountModalTitle">
+                    <i class="bi bi-bank"></i>
+                    Adicionar uma conta
+                </h2>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+
+            </div>
+
+            <!-- Formulário -->
+            <form id="accountForm" class="system-form">
+
+                <div class="modal-body">
+
+                    <div class="account-form-field system-form-field">
+                        <label for="accountName">Nome</label>
+                        <input type="text" id="accountName" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="account-form-field system-form-field">
+                        <label for="accountType">Tipo</label>
+                        <select id="accountType" name="type" class="form-select" required>
+
+                            <option value="" selected disabled>
+                                Selecione um tipo
+                            </option>
+                            <option value="Conta bancária">
+                                Conta bancária
+                            </option>
+                            <option value="Poupança">
+                                Poupança
+                            </option>
+                            <option value="Carteira">
+                                Carteira
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="account-form-field system-form-field">
+                        <label for="accountStatus">Status</label>
+                        <select id="accountStatus" name="status" class="form-select" required>
+
+                            <option value="Ativo" selected>Ativo</option>
+                            <option value="Inativo">Inativo</option>
+
+                        </select>
+                    </div>
+
+                    <div class="account-form-field system-form-field">
+                        <label for="accountBalance">
+                            Saldo inicial
+                        </label>
+                        <input type="number" id="accountBalance" name="balance" class="form-control" min="0" step="0.01"
+                            placeholder="R$ 0,00" required>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé -->
+                <div class="modal-footer">
+
+                    <button type="button" class="cancel-btn" data-bs-dismiss="modal">
+                        <span class="cancel-btn-label">Cancelar</span>
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        + Adicionar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -39,12 +39,20 @@
 
 .data-table td {
     font-size: 12px;
-    color: var(--font-color-gray);
+    color: var(--font-color-darkgray);
 }
 
 .data-table th,
 .data-table td {
     white-space: nowrap;
+}
+
+.data-table td.positive {
+    color: var(--green-indicator);
+}
+
+.data-table td.negative {
+    color: var(--red-indicator);
 }
 
 .data-table td button {
@@ -54,13 +62,14 @@
 
     background-color: transparent;
     border: none;
-    color: var(--font-color-lightgray);
+    color: var(--font-color-darkgray);
 }
 
 .data-table td button:hover {
     background-color: #EAEAEA;
     color: var(--sidebar-bg);
 }
+
 
 .data-table .delete-btn:hover {
     background-color: #FCE8E8;
@@ -69,4 +78,8 @@
 
 .data-table td button i {
     font-size: 15px;
+}
+
+.accounts-empty-state {
+    min-height: 450px;
 }

@@ -22,9 +22,17 @@ async function loadPage(page) {
         // Insere o conteúdo dentro do main
         pageContent.innerHTML = html;
 
-        // Inicializa funcionalidades específicas da página
+        // Inicialização dos scripts específicos
         if (page === "dashboard") {
             initDashboard();
+        }
+
+        if (page === "accounts") {
+            initAccounts();
+        }
+
+        if (page === "transactions") {
+            initTransactions();
         }
 
         return true;

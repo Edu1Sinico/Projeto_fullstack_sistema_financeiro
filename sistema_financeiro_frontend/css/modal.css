@@ -1,0 +1,101 @@
+/* Fundo escuro dos modais */
+
+
+.system-modal {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 10px;
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Cabeçalho do Modal */
+.system-modal .modal-header {
+    border-bottom: 2px solid #EAEAEA;
+}
+
+.system-modal .modal-header .btn-close {
+    color: var(--font-color-darkgray);
+}
+
+.system-modal .modal-header .btn-close:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 .25rem transparent;
+}
+
+.system-modal .modal-header .modal-title {
+    display: flex;
+    align-items: center;
+    gap: var(--icon-gap);
+    color: var(--accent-color);
+}
+
+.system-modal .modal-header .modal-title i {
+    font-size: 37px;
+}
+
+/* Seção do formulário */
+.system-modal .system-form-field {
+    padding: 7.5px 5px;
+}
+
+.system-modal .system-form-field label {
+    color: var(--font-color-darkgray)
+}
+
+.system-modal .system-form-field input::placeholder {
+    color: var(--font-color-gray);
+}
+
+.system-modal .system-form-field .form-control:focus,
+.system-modal .system-form-field .form-select:focus {
+    border-color: #f8cca0;
+    box-shadow: 0 0 0 .25rem #f8cca0;
+}
+
+/* Rodapé do Modal */
+.system-modal .modal-footer {
+    border-top: 2px solid #EAEAEA;
+    display: flex;
+    gap: 15px;
+}
+
+.system-modal .modal-footer .cancel-btn {
+    position: relative;
+
+
+    background-color: transparent;
+    border: none;
+    color: var(--font-color-darkgray);
+
+    cursor: pointer;
+}
+
+.system-modal .modal-footer .cancel-btn::after {
+    content: "";
+    width: 0%;
+    height: 3px;
+
+    position: absolute;
+    bottom: 0;
+    left: 1px;
+
+    background-color: var(--font-color-darkgray);
+    transition: 0.3s ease-in-out;
+}
+
+.system-modal .modal-footer .cancel-btn:hover::after {
+    width: 100%;
+}
+
+.system-modal .modal-footer .save-btn {
+    padding: 5px 20px;
+    border: none;
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.system-modal .modal-footer .save-btn:hover {
+    background-color: #e87400;
+}

@@ -10,6 +10,10 @@
     gap: 10px;
 }
 
+.transactions-toolbar {
+    grid-template-columns: 2fr repeat(5, minmax(0, 1fr));
+}
+
 .search-bar {
     position: relative;
 
@@ -74,6 +78,10 @@
     cursor: pointer;
 }
 
+.period-filter-btn {
+    text-overflow: ellipsis;
+}
+
 .filter-btn .filter-arrow {
     color: var(--font-color-darkgray);
     margin-left: auto;
@@ -95,12 +103,22 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
 }
 
+.transactions-period-filter .period-filter-menu {
+    width: min(360px, calc(100vw - 32px));
+    min-width: 0;
+}
+
+.transactions-period-filter .period-filter-menu .date-filter-label {
+    color: var(--font-color-darkgray);
+}
+
 .date-filter-input {
     color: var(--font-color-gray);
     cursor: pointer;
 }
 
-.date-filter-input:focus, .form-check-input:focus {
+.date-filter-input:focus,
+.form-check-input:focus {
     color: var(--font-color-gray);
     border-color: #f8cca0;
     box-shadow: 0 0 0 .25rem #f8cca0;
@@ -119,12 +137,12 @@
     cursor: pointer;
 }
 
-.clear-filter-btn:hover{
+.clear-filter-btn:hover {
     background-color: #e87400;
 }
 
-.form-check-input{
-    cursor:pointer;
+.form-check-input {
+    cursor: pointer;
 }
 
 .form-check-input:checked {
@@ -170,15 +188,34 @@
     .search-bar {
         grid-column: 1 / -1;
     }
+
+    .transactions-toolbar {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .transactions-toolbar .add-btn {
+        grid-column: span 2;
+    }
 }
 
 /* Telas pequenas */
 @media (max-width: 768px) {
-    .toolbar {
+
+    .toolbar,
+    .transactions-toolbar {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .add-btn {
+    .add-btn,
+    .transactions-toolbar .add-btn {
         grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .toolbar,
+    .transactions-toolbar {
+        grid-template-columns: minmax(0, 1fr);
     }
 }

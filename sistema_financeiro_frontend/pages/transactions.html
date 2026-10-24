@@ -1,5 +1,222 @@
-<section class="accounts">
+<section class="transactions">
+
+    <!-- Título da página -->
     <div class="main-top-section">
         <h1 class="title-section">Transações</h1>
+    </div>
+
+
+    <!-- Barra de filtros -->
+    <div class="transactions-toolbar toolbar">
+
+        <!-- Pesquisa -->
+        <div class="transactions-search search-bar">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Pesquisar" aria-label="Pesquisar transações">
+        </div>
+
+        <!-- Filtro de data -->
+        <div class="dropdown transactions-period-filter filter">
+            <!-- Dropdown de data -->
+            <button type="button" class="period-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span class="selected-transaction-period">Período</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu period-filter-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione um período</h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="period-fields">
+
+                    <div class="period-field">
+                        <label for="start-date" class="date-filter-label">Data inicial</label>
+                        <input type="date" id="start-date" class="form-control date-filter-input">
+                    </div>
+
+                    <div class="period-field">
+                        <label for="end-date" class="date-filter-label">Data final</label>
+                        <input type="date" id="end-date" class="form-control date-filter-input">
+                    </div>
+
+                </div>
+
+                <!-- Botão para limpar filtro -->
+                <button type="button" class="clear-filter-btn">Limpar</button>
+
+            </div>
+        </div>
+
+        <!-- Filtro de categoria -->
+        <div class="dropdown transactions-category-filter filter">
+            <!-- Dropdown de categoria -->
+            <button type="button" class="category-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+
+                <span class="selected-transaction-category">Categoria</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione a categoria</h6>
+                <hr class="dropdown-divider">
+
+                <div class="transaction-category-options">
+                    <!-- Categorias inseridas pelo JavaScript -->
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Filtro de Conta -->
+        <div class="dropdown transactions-account-filter filter">
+
+            <button type="button" class="account-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+
+                <span class="selected-transaction-account">
+                    Conta
+                </span>
+
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione a conta</h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="transaction-account-options">
+                    <!-- Contas inseridas pelo JavaScript -->
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Filtro de tipo -->
+        <div class="dropdown transactions-type-filter filter">
+
+            <button type="button" class="type-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+
+                <span class="selected-transaction-type">Tipo</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione o tipo</h6>
+                <hr class="dropdown-divider">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" data-value="all" id="transaction-all-types" checked>
+
+                    <label class="form-check-label" for="transaction-all-types">
+                        Todos os tipos
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" data-value="Receita" id="transaction-income">
+
+                    <label class="form-check-label" for="transaction-income">
+                        Receita
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" data-value="Despesa" id="transaction-expense">
+
+                    <label class="form-check-label" for="transaction-expense">
+                        Despesa
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Adicionar conta -->
+        <button type="button" class="add-transaction-btn add-btn" data-bs-toggle="modal"
+            data-bs-target="#transactionModal">
+            <span>+ Adicionar transação</span>
+        </button>
+
+    </div>
+
+    <!-- Tabela de contas -->
+    <div class="transactions-table-section table-section">
+
+        <div class="table-responsive">
+            <table class="table data-table transactions-table">
+
+                <thead>
+                    <tr class="table-header">
+                        <th scope="col">Data</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Conta</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="table-row" data-description="Entrada para teste" data-date="2026-10-13"
+                        data-account="Conta do banco" data-category="Salário" data-type="Receita">
+
+                        <td>13/10/2026</td>
+                        <td>Entrada para teste</td>
+                        <td>Conta do banco</td>
+                        <td>Salário</td>
+                        <td>Receita</td>
+                        <td class="positive">+ R$ 1.000,00</td>
+                        <td>
+                            <button type="button" class="edit-btn">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button type="button" class="delete-btn">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row" data-description="Saída para teste" data-date="2026-10-13"
+                        data-account="Conta do banco" data-category="Pagamento" data-type="Despesa">
+
+                        <td>13/10/2026</td>
+                        <td>Saída para teste</td>
+                        <td>Conta do banco</td>
+                        <td>Pagamento</td>
+                        <td>Despesa</td>
+                        <td class="negative">- R$ 50,00</td>
+                        <td>
+                            <button type="button" class="edit-btn">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button type="button" class="delete-btn">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Aparecer no meio da tabela quando não ter nenhum elemento nela. -->
+        <div class="empty-state transactions-empty-state d-none">
+            <i class="bi bi-inbox"></i>
+            <p class="transactions-empty-message">Não há transações disponíveis</p>
+        </div>
+
     </div>
 </section>

@@ -33,7 +33,7 @@ body {
 
 /* Menu lateral */
 .sidebar {
-    width: 300px;
+    width: 275px;
     height: 100vh;
     background-color: var(--sidebar-bg);
 
