@@ -10,7 +10,27 @@
 
 .filter-section {
     display: flex;
+    align-items: center;
     gap: 10px;
+
+    min-width: 0;
+}
+
+.dashboard .filter-wrapper {
+    min-width: 0;
+}
+
+.dashboard .filter-trigger {
+    width: 150px;
+    max-width: 100%;
+}
+
+.dashboard .selected-dashboard-accounts {
+    min-width: 0;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .filter-trigger {
@@ -521,6 +541,10 @@
     background-color: var(--green-indicator);
 }
 
+.dashboard .goals-empty-state:not(.d-none) {
+    min-height: 100%;
+}
+
 /* Painel de contas */
 .balance-section {
     width: 100%;
@@ -577,4 +601,75 @@
 
 .account-value.negative {
     color: var(--red-indicator);
+}
+
+@media (max-width: 1200px) {
+
+    .dashboard .main-top-section {
+        height: auto;
+        min-height: 100px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        gap: 20px;
+        padding-bottom: 15px;
+    }
+
+    .dashboard .filter-section {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .dashboard .filter-trigger {
+        width: 170px;
+    }
+
+    .dashboard .main-top-section {
+        height: auto;
+        min-height: 100px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        gap: 20px;
+        padding-bottom: 15px;
+    }
+
+    .dashboard .filter-section {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .dashboard .filter-trigger {
+        width: 170px;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .dashboard .period-menu {
+        min-width: 0;
+        width: min(320px, calc(100vw - 95px));
+        max-width: calc(100vw - 95px);
+    }
+
+    .dashboard .period-fields {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .dashboard .period-field {
+        min-width: 0;
+    }
+
+    .dashboard .period-field input {
+        width: 100%;
+        min-width: 0;
+    }
+
 }

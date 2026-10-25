@@ -12,6 +12,9 @@ function initGoals() {
     initGoalSearch();
     initGoalStatusFilter();
 
+    // Drag and drop
+    initGoalDragAndDrop();
+
     // Estado inicial
     filterGoals();
 
@@ -381,6 +384,93 @@ function updateGoalProgress() {
 
         // Armazena o status calculado
         card.dataset.status = status;
+
+    });
+
+}
+
+// Funcionalidade drag and drop
+function initGoalDragAndDrop() {
+
+    const goalsGrid = document.querySelector(".goals-grid");
+
+    if (!goalsGrid) return;
+
+    if (typeof Sortable === "undefined") {
+        console.error("SortableJS não foi carregado.");
+        return;
+    }
+
+    const storageKey = "financial-goals-order";
+
+    // Recupera a ordem salva no navegador
+    let savedOrder = [];
+
+    try {
+        savedOrder = JSON.parse(
+            localStorage.getItem(storageKey) || "[]"
+        );
+    }
+    catch (error) {
+        console.warn("Não foi possível recuperar a ordem das metas.", error);
+    }
+
+    // Reorganiza os cards conforme a ordem armazenada
+    if (Array.isArray(savedOrder)) {
+
+        const cards = [...goalsGrid.querySelectorAll(".goal-card")];
+
+        const cardsById = new Map(
+            cards.map(card => [card.dataset.goalId, card])
+        );
+
+        savedOrder.forEach(id => {
+
+            const card = cardsById.get(String(id));
+
+            if (card) {
+                goalsGrid.appendChild(card);
+            }
+
+        });
+
+    }
+
+    // Evita inicializar duas vezes no mesmo elemento
+    if (Sortable.get(goalsGrid)) return;
+
+    Sortable.create(goalsGrid, {
+
+        animation: 200,
+
+        draggable: ".goal-card",
+
+        handle: ".goal-drag-handle",
+
+        ghostClass: "goal-card-ghost",
+
+        chosenClass: "goal-card-chosen",
+
+        dragClass: "goal-card-dragging",
+
+        // Salva a ordem quando o usuário termina de arrastar
+        onEnd: function () {
+
+            const currentOrder = [
+                ...goalsGrid.querySelectorAll(".goal-card")
+            ].map(card => card.dataset.goalId);
+
+            try {
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify(currentOrder)
+                );
+            }
+            catch (error) {
+                console.warn("Não foi possível salvar a ordem das metas.", error);
+            }
+
+        }
 
     });
 

@@ -58,7 +58,8 @@
     background: transparent;
 
     color: var(--font-color-darkgray);
-    cursor: x;
+    cursor: grab;
+    touch-action: none;
 }
 
 .goal-drag-handle:active {
@@ -204,6 +205,63 @@
 
 .goal-card[hidden] {
     display: none;
+}
+
+/* Drag and drop dos cards */
+
+.goal-drag-handle {
+    cursor: grab;
+    touch-action: none;
+}
+
+.goal-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Espaço ocupado pelo card durante o arraste */
+.goal-card-ghost {
+    opacity: 0.35;
+    border: 2px dashed var(--accent-color);
+}
+
+/* Card selecionado */
+.goal-card-chosen {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Card sendo arrastado */
+.goal-card-dragging {
+    cursor: grabbing;
+}
+
+/* Estado vazio da página de Metas */
+
+.goals-empty-state:not(.d-none) {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 300px;
+
+    gap: 15px;
+    padding: 30px 15px;
+
+    text-align: center;
+}
+
+.goals-empty-state i {
+    font-size: 28px;
+    color: var(--font-color-gray);
+}
+
+.goals-empty-message {
+    margin: 0;
+
+    font-size: 14px;
+    color: var(--font-color-darkgray);
 }
 
 @media (max-width: 480px) {

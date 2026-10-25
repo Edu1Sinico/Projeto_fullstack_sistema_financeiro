@@ -13,6 +13,7 @@
 
     --green-indicator: #34A641;
     --red-indicator: #BD2E2E;
+
 }
 
 * {
@@ -43,6 +44,8 @@ body {
     position: sticky;
     top: 0;
     flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Região à direita do menu */
@@ -55,20 +58,28 @@ body {
 
 /* Cabeçalho */
 .app-header {
+    width: 100%;
     height: 65px;
-    margin: 0px 35px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    flex-shrink: 0;
+
+    background-color: #ffffff;
+}
+
+/* Conteúdo interno do cabeçalho */
+.header-content {
+    height: 100%;
+    margin: 0 35px;
 
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
 
-    background-color: #ffffff;
     border-bottom: 3px solid #EAEAEA;
-
-    position: sticky;
-    z-index: 100;
-    top: 0;
-    flex-shrink: 0;
 }
 
 /* Conteúdo principal */

@@ -12,7 +12,7 @@
                 <button class="filter-trigger" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                     aria-expanded="false">
                     <i class="bi bi-bank"></i>
-                    <span>Contas</span>
+                    <span class="selected-dashboard-accounts">Contas</span>
                     <i class="bi bi-chevron-down filter-arrow"></i>
                 </button>
 
@@ -23,20 +23,16 @@
                     <hr class="dropdown-divider">
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="all-accounts" checked>
+                        <input class="form-check-input" type="checkbox" id="all-accounts" data-value="all" checked>
 
                         <label class="form-check-label" for="all-accounts">
                             Todas as contas
                         </label>
                     </div>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="bank-account">
+                    <!-- Contas adicionadas dinamicamente pelo JavaScript -->
+                    <div id="dashboard-account-options"></div>
 
-                        <label class="form-check-label" for="bank-account">
-                            Conta do banco
-                        </label>
-                    </div>
                 </div>
 
             </div>
@@ -51,11 +47,12 @@
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-end filter-menu period-menu">
-                    <!-- Datas -->
+                    <!-- Título do filtro -->
                     <h6 class="filter-menu-title">Período</h6>
 
                     <hr class="dropdown-divider">
 
+                    <!-- Data inicial e final -->
                     <div class="period-fields">
 
                         <div class="period-field">
@@ -69,6 +66,9 @@
                         </div>
 
                     </div>
+
+                    <!-- Botão para limpar filtro -->
+                    <button type="button" class="clear-filter-btn">Limpar</button>
 
                 </div>
 
@@ -89,11 +89,11 @@
                 </div>
 
                 <div class="card-info">
-                    <span>R$ 0,00</span>
+                    <span id="dashboard-total-balance">R$ 0,00</span>
                 </div>
 
                 <div class="card-caption">
-                    <span>Receitas e Despesas acumuladas</span>
+                    <span>Saldo atual das contas selecionadas</span>
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="card-info positive">
-                    <span>+ R$ 0,00</span>
+                    <span id="dashboard-total-income">+ R$ 0,00</span>
                 </div>
 
                 <div class="card-caption">
@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="card-info negative">
-                    <span>- R$ 0,00</span>
+                    <span id="dashboard-total-expenses">- R$ 0,00</span>
                 </div>
 
                 <div class="card-caption">
@@ -139,11 +139,11 @@
                 <div class="card-title">
                     <i class="bi bi-bar-chart-fill"></i>
                     <span>Resultado do período</span>
-                    <span class="dot-green"></span>
+                    <span id="dashboard-result-indicator" class="dot-green"></span>
                 </div>
 
                 <div class="card-info">
-                    <span>R$ 0,00</span>
+                    <span id="dashboard-period-result">R$ 0,00</span>
                 </div>
 
                 <div class="card-caption">
@@ -191,6 +191,9 @@
                                 </label>
                             </div>
 
+                            <!-- Categorias inseridas pelo JavaScript -->
+                            <div id="dashboard-category-options"></div>
+
                         </div>
 
                     </div>
@@ -209,31 +212,31 @@
 
                         <ul class="dropdown-menu transaction-filter-menu">
                             <li>
-                                <button class="dropdown-item" type="button">
+                                <button class="dropdown-item" type="button" data-days="7">
                                     Últimos 7 dias
                                 </button>
                             </li>
 
                             <li>
-                                <button class="dropdown-item" type="button">
+                                <button class="dropdown-item" type="button" data-days="15">
                                     Últimos 15 dias
                                 </button>
                             </li>
 
                             <li>
-                                <button class="dropdown-item active" type="button">
+                                <button class="dropdown-item active" type="button" data-days="30">
                                     Últimos 30 dias
                                 </button>
                             </li>
 
                             <li>
-                                <button class="dropdown-item" type="button">
+                                <button class="dropdown-item" type="button" data-days="60">
                                     Últimos 60 dias
                                 </button>
                             </li>
 
                             <li>
-                                <button class="dropdown-item" type="button">
+                                <button class="dropdown-item" type="button" data-days="90">
                                     Últimos 90 dias
                                 </button>
                             </li>
@@ -245,49 +248,14 @@
                 <div class="panel-content">
                     <!-- Conteúdo das transações -->
 
-                    <!-- Caso estiver vazio -->
-                    <!-- <div class="empty-state">
-                            <i class="bi bi-inbox"></i>
-                            <p>Não há transações disponíveis</p>
-                        </div> -->
-
                     <!-- Lista de transações -->
-                    <div class="transactions-list">
+                    <div class="transactions-list"></div>
 
-                        <div class="transaction-item">
 
-                            <div class="transaction-description">
-                                <span class="dot-green"></span>
-                                <span>Receita</span>
-                            </div>
-
-                            <span class="transaction-value positive">
-                                + R$ 1.000,00
-                            </span>
-
-                            <span class="transaction-date">
-                                13/10/2026
-                            </span>
-
-                        </div>
-
-                        <div class="transaction-item">
-
-                            <div class="transaction-description">
-                                <span class="dot-red"></span>
-                                <span>Despesa</span>
-                            </div>
-
-                            <span class="transaction-value negative">
-                                - R$ 50,00
-                            </span>
-
-                            <span class="transaction-date">
-                                13/10/2026
-                            </span>
-
-                        </div>
-
+                    <!-- Estado vazio -->
+                    <div class="empty-state transactions-empty-state d-none">
+                        <i class="bi bi-inbox"></i>
+                        <p>Nenhuma transação encontrada para os filtros selecionados.</p>
                     </div>
 
                 </div>
@@ -341,16 +309,16 @@
                 <div class="panel-content">
                     <!-- Conteúdo das metas -->
 
-                    <!-- Caso não existam metas -->
-                    <!-- <div class="empty-state">
-                            <i class="bi bi-inbox"></i>
-                            <p>Não há metas disponíveis</p>
-                        </div> -->
+                    <!-- Estado vazio das metas -->
+                    <div class="empty-state goals-empty-state d-none">
+                        <i class="bi bi-inbox"></i>
+                        <p>Não há metas cadastradas.</p>
+                    </div>
 
                     <!-- Lista de metas -->
                     <div class="goals-list">
 
-                        <div class="goal-item">
+                        <div class="goal-item" data-deadline="2027-01-31">
 
                             <!-- Informações da meta -->
                             <div class="goal-item-header">
@@ -365,9 +333,10 @@
                                     </small>
                                 </div>
 
-                                <a href="goals.html" class="goal-details-btn" aria-label="Ver detalhes da meta">
+                                <button type="button" class="goal-details-btn" data-goal-id="1"
+                                    aria-label="Ver detalhes da meta">
                                     <i class="bi bi-three-dots"></i>
-                                </a>
+                                </button>
 
                             </div>
 
@@ -387,6 +356,52 @@
                                 <div class="progress goal-progress-bar">
                                     <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55"
                                         aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da meta">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="goal-item" data-deadline="2027-12-15">
+
+                            <!-- Informações da meta -->
+                            <div class="goal-item-header">
+
+                                <div class="goal-details">
+                                    <span class="goal-title">
+                                        Planejar as férias 🧳
+                                    </span>
+
+                                    <small class="goal-deadline">
+                                        Meta até Dezembro de 2027
+                                    </small>
+                                </div>
+
+                                <button type="button" class="goal-details-btn" data-goal-id="2"
+                                    aria-label="Ver detalhes da meta">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+
+                            </div>
+
+                            <!-- Progresso da meta -->
+                            <div class="goal-progress">
+
+                                <div class="goal-values">
+                                    <span class="goal-current-value">
+                                        R$ 212,00
+                                    </span>
+
+                                    <span class="goal-target-value">
+                                        R$ 2200,00
+                                    </span>
+                                </div>
+
+                                <div class="progress goal-progress-bar">
+                                    <div class="progress-bar" role="progressbar" style="width: 9.6%;"
+                                        aria-valuenow="9.6" aria-valuemin="0" aria-valuemax="100"
+                                        aria-label="Progresso da meta">
                                     </div>
                                 </div>
 
@@ -414,7 +429,7 @@
                 <div class="panel-summary">
                     <div class="balance-section">
                         <span>Saldo total</span>
-                        <span>R$ 950,00</span>
+                        <span id="dashboard-accounts-balance">R$ 0,00</span>
                     </div>
                 </div>
 
@@ -423,25 +438,14 @@
 
                     <!-- Caso não existam contas cadastradas  -->
                     <!-- <div class="empty-state">
-                            <i class="bi bi-inbox"></i>
-                            <p>Não há contas cadastradas</p>
-                        </div> -->
+                        <i class="bi bi-inbox"></i>
+                        <p>Não há contas cadastradas</p>
+                    </div> -->
 
                     <!-- Lista de metas -->
                     <div class="accounts-list">
 
-                        <div class="account-item">
-
-                            <div class="account-description">
-                                <span class="account-title">Conta do banco</span>
-                                <span class="account-type">Conta bancária</span>
-                            </div>
-
-                            <span class="account-value">
-                                R$ 950,00
-                            </span>
-
-                        </div>
+                        <!-- Contas inseridas pelo JavaScript -->
 
                     </div>
 

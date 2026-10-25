@@ -41,27 +41,27 @@
                 <!-- Link das páginas -->
                 <p class="text-section">Principal</p>
 
-                <a href="#" class="page-btn active" data-page="dashboard">
+                <a href="#" class="page-btn active" data-page="dashboard" aria-label="Dashboard" title="Dashboard">
                     <i class="bi bi-grid-1x2"></i>
                     <span>Dashboard</span>
                 </a>
 
-                <a href="#" class="page-btn" data-page="accounts">
+                <a href="#" class="page-btn" data-page="accounts" aria-label="Contas" title="Contas">
                     <i class="bi bi-bank"></i>
                     <span>Contas</span>
                 </a>
 
-                <a href="#" class="page-btn" data-page="transactions">
+                <a href="#" class="page-btn" data-page="transactions" aria-label="Transações" title="Transações">
                     <i class="bi bi-arrow-left-right"></i>
                     <span>Transações</span>
                 </a>
 
-                <a href="#" class="page-btn" data-page="categories">
+                <a href="#" class="page-btn" data-page="categories" aria-label="Categorias" title="Categorias">
                     <i class="bi bi-file-earmark-text"></i>
                     <span>Categorias</span>
                 </a>
 
-                <a href="#" class="page-btn" data-page="goals">
+                <a href="#" class="page-btn" data-page="goals" aria-label="Metas" title="Metas">
                     <i class="bi bi-piggy-bank"></i>
                     <span>Metas</span>
                 </a>
@@ -86,13 +86,13 @@
                         </p>
                     </div>
 
-                    <button type="button" class="config-btn" aria-label="Configurações">
+                    <button type="button" class="config-btn" aria-label="Configurações" title="Configurações">
                         <i class="bi bi-gear"></i>
                     </button>
                 </div>
 
                 <div class="exit-section">
-                    <button type="button" class="exit-btn">
+                    <button type="button" class="exit-btn" aria-label="Sair" title="Sair">
                         <i class="bi bi-box-arrow-right"></i>
                         <span>Sair</span>
                     </button>
@@ -108,75 +108,79 @@
 
             <header class="app-header">
                 <!-- Título, notificações e perfil -->
-                <p class="system-title">Sistema de Gestão Financeira Pessoal</p>
 
-                <div class="user-section">
-                    <button type="button" class="notify-btn" aria-label="Notificações">
-                        <i class="bi bi-bell" aria-hidden="true"></i>
-                    </button>
+                <div class="header-content">
 
-                    <!-- Dropdown -->
-                    <div class="dropdown">
+                    <p class="system-title">Sistema de Gestão Financeira Pessoal</p>
 
-                        <!-- Botão do Dropdown  -->
-                        <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-                            aria-expanded="false" class="account-btn" aria-label="Abrir menu do perfil">
-                            <i class="bi bi-person" aria-hidden="true"></i>
+                    <div class="user-section">
+                        <button type="button" class="notify-btn" aria-label="Notificações">
+                            <i class="bi bi-bell" aria-hidden="true"></i>
                         </button>
 
-                        <!-- Seção do Dropdown -->
-                        <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+                        <!-- Dropdown -->
+                        <div class="dropdown">
 
-                            <!-- Informações do usuário -->
-                            <div class="profile-dropdown-header">
-                                <div class="profile-avatar">
-                                    <i class="bi bi-person"></i>
-                                </div>
+                            <!-- Botão do Dropdown  -->
+                            <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                aria-expanded="false" class="account-btn" aria-label="Abrir menu do perfil">
+                                <i class="bi bi-person" aria-hidden="true"></i>
+                            </button>
 
-                                <div class="profile-details">
-                                    <p class="profile-title">Conta do Usuário</p>
-                                    <div class="profile-description">
-                                        <small class="user-type">Usuário Padrão</small>
-                                        <span>•</span>
-                                        <small class="user-email">usuario@gmail.com</small>
+                            <!-- Seção do Dropdown -->
+                            <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+
+                                <!-- Informações do usuário -->
+                                <div class="profile-dropdown-header">
+                                    <div class="profile-avatar">
+                                        <i class="bi bi-person"></i>
                                     </div>
+
+                                    <div class="profile-details">
+                                        <p class="profile-title">Conta do Usuário</p>
+                                        <div class="profile-description">
+                                            <small class="user-type">Usuário Padrão</small>
+                                            <span>•</span>
+                                            <small class="user-email">usuario@gmail.com</small>
+                                        </div>
+                                    </div>
+
                                 </div>
 
+                                <hr class="dropdown-divider">
+
+                                <!-- Opções -->
+                                <button type="button" class="dropdown-item">
+                                    <i class="bi bi-gear"></i>
+                                    <span>Configurações</span>
+                                </button>
+
+                                <button type="button" class="dropdown-item">
+                                    <i class="bi bi-key"></i>
+                                    <span>Alterar senha</span>
+                                </button>
+
+                                <div class="dropdown-item theme-option">
+                                    <i class="bi bi-palette"></i>
+                                    <span>Tema do sistema</span>
+                                    <!-- Futuro botão de alternância -->
+                                </div>
+
+                                <hr class="dropdown-divider">
+
+                                <!-- Sair -->
+                                <button type="button" class="dropdown-item">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Sair</span>
+                                </button>
+
                             </div>
-
-                            <hr class="dropdown-divider">
-
-                            <!-- Opções -->
-                            <button type="button" class="dropdown-item">
-                                <i class="bi bi-gear"></i>
-                                <span>Configurações</span>
-                            </button>
-
-                            <button type="button" class="dropdown-item">
-                                <i class="bi bi-key"></i>
-                                <span>Alterar senha</span>
-                            </button>
-
-                            <div class="dropdown-item theme-option">
-                                <i class="bi bi-palette"></i>
-                                <span>Tema do sistema</span>
-                                <!-- Futuro botão de alternância -->
-                            </div>
-
-                            <hr class="dropdown-divider">
-
-                            <!-- Sair -->
-                            <button type="button" class="dropdown-item">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Sair</span>
-                            </button>
 
                         </div>
 
                     </div>
 
                 </div>
-
 
             </header>
 
@@ -190,6 +194,9 @@
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Biblioteca SortableJS -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 
     <!-- Funcionalidades do Dashboard -->
     <script src="js/dashboard.js"></script>
