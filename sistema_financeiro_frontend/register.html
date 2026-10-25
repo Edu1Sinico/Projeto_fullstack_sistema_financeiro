@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro | Sistema Financeiro</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+
+    <main class="auth-layout">
+
+        <!-- Área de apresentação -->
+        <section class="auth-presentation">
+
+            <div class="auth-presentation-content">
+
+                <div id="authCarousel" class="carousel slide auth-carousel" data-bs-ride="carousel"
+                    data-bs-interval="5000">
+
+                    <div class="carousel-inner">
+
+                        <!-- Slide 1 -->
+                        <div class="carousel-item active">
+
+                            <div class="auth-slide">
+
+                                <h2 class="auth-title">
+                                    Sistema ideal para seu
+                                    <span>planejamento financeiro!</span>
+                                </h2>
+
+                                <img src="assets/images/auth_banner_01.png" alt="Ilustração de planejamento financeiro">
+
+                            </div>
+
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="carousel-item">
+
+                            <div class="auth-slide">
+
+                                <h2 class="auth-title">
+                                    Organize suas
+                                    <span>receitas e despesas</span>
+                                    em um só lugar!
+                                </h2>
+
+                                <img src="assets/images/auth_banner_02.png" alt="Ilustração de controle financeiro">
+
+                            </div>
+
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="carousel-item">
+
+                            <div class="auth-slide">
+
+                                <h2 class="auth-title">
+                                    Defina seus
+                                    <span>planos e metas</span>
+                                    com nossa ajuda!
+                                </h2>
+
+                                <img src="assets/images/auth_banner_03.png" alt="Ilustração de metas financeiras">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Indicadores -->
+                    <div class="carousel-indicators">
+
+                        <button type="button" data-bs-target="#authCarousel" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1">
+                        </button>
+
+                        <button type="button" data-bs-target="#authCarousel" data-bs-slide-to="1" aria-label="Slide 2">
+                        </button>
+
+                        <button type="button" data-bs-target="#authCarousel" data-bs-slide-to="2" aria-label="Slide 3">
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Área do formulário -->
+        <section class="auth-form-section">
+
+            <div class="auth-card auth-register-card">
+
+                <!-- Logo -->
+                <div class="auth-logo">
+                    <span>Logo</span>
+                </div>
+
+                <h1 class="auth-form-title">
+                    Cadastre-se
+                </h1>
+
+                <form id="registerForm">
+
+                    <!-- Nome -->
+                    <div class="auth-field">
+
+                        <label for="registerName">
+                            Nome
+                        </label>
+
+                        <div class="auth-input-group">
+                            <i class="bi bi-person" aria-hidden="true"></i>
+
+                            <input type="text" id="registerName" name="name" placeholder="Insira seu nome"
+                                autocomplete="name" minlength="3" required>
+                        </div>
+
+                    </div>
+
+                    <!-- E-mail -->
+                    <div class="auth-field">
+
+                        <label for="registerEmail">
+                            E-mail
+                        </label>
+
+                        <div class="auth-input-group">
+                            <i class="bi bi-envelope" aria-hidden="true"></i>
+
+                            <input type="email" id="registerEmail" name="email" placeholder="exemplo@email.com"
+                                autocomplete="email" required>
+                        </div>
+
+                    </div>
+
+                    <!-- Senha -->
+                    <div class="auth-field">
+
+                        <label for="registerPassword">
+                            Senha
+                        </label>
+
+                        <div class="auth-input-group">
+                            <i class="bi bi-lock" aria-hidden="true"></i>
+
+                            <input type="password" id="registerPassword" name="password" placeholder="Insira sua senha"
+                                autocomplete="new-password" minlength="8" required>
+                        </div>
+
+                    </div>
+
+                    <!-- Confirmar senha -->
+                    <div class="auth-field">
+
+                        <label for="registerConfirmPassword">
+                            Confirmar senha
+                        </label>
+
+                        <div class="auth-input-group">
+                            <i class="bi bi-lock-fill" aria-hidden="true"></i>
+
+                            <input type="password" id="registerConfirmPassword" name="confirmPassword"
+                                placeholder="Confirme sua senha" autocomplete="new-password" minlength="8" required>
+                        </div>
+
+                    </div>
+
+                    <!-- Mensagem de validação -->
+                    <p id="registerError" class="auth-error d-none" role="alert"></p>
+
+                    <!-- Botões -->
+                    <div class="auth-actions">
+
+                        <button type="submit" class="auth-primary-btn">
+                            Criar conta
+                        </button>
+
+                        <a href="login.html" class="auth-secondary-btn">
+                            Realizar login
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>
