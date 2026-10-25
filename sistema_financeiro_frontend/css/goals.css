@@ -1,0 +1,223 @@
+/* Grid de metas */
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(min(100%, 280px), 330px));
+
+    gap: 20px;
+    align-items: start;
+
+    margin-top: 15px;
+}
+
+/* Card */
+
+.goal-card {
+    min-width: 0;
+    padding: 12px;
+
+    background-color: var(--content-bg);
+    border-radius: 10px;
+
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Cabeçalho */
+
+.goal-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding-bottom: 5px;
+    border-bottom: 2px solid #EAEAEA;
+}
+
+.goal-card-title {
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--sidebar-bg);
+
+    overflow-wrap: anywhere;
+}
+
+.goal-drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 4px;
+
+    border: none;
+    background: transparent;
+
+    color: var(--font-color-darkgray);
+    cursor: x;
+}
+
+.goal-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Informações da meta */
+
+.goal-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.goal-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding: 11px 0;
+
+    border-bottom: 1.5px solid #F0F0F0;
+}
+
+.goal-info-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--font-color-darkgray);
+}
+
+.goal-info-value {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--sidebar-bg);
+    text-align: right;
+}
+
+.goal-current-value {
+    color: var(--green-indicator);
+}
+
+/* Progresso da meta */
+
+.goal-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    margin-top: 12px;
+}
+
+.goal-progress-bar {
+    width: 100%;
+    height: 9px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+    background-color: #D9D9D9;
+}
+
+.goal-progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+    background-color: var(--green-indicator);
+
+    transition: width 0.3s ease-in-out;
+}
+
+.goal-progress-percentage {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--sidebar-bg);
+}
+
+/* Ações da meta */
+
+.goal-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.goal-contribution-btn {
+    min-height: 30px;
+    padding: 5px 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: var(--green-indicator);
+    color: #FFFFFF;
+
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: background-color 0.2s ease-in-out;
+}
+
+.goal-contribution-btn:hover {
+    background-color: #258631;
+}
+
+.goal-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.goal-action-buttons button {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+
+    background-color: transparent;
+    border: none;
+    color: var(--font-color-darkgray);
+}
+
+.goal-action-buttons button i {
+    font-size: 20px;
+}
+
+.goal-action-buttons button:hover {
+    background-color: #EAEAEA;
+    color: var(--sidebar-bg);
+}
+
+.goal-action-buttons .delete-btn {
+    color: var(--red-indicator)
+}
+
+.goal-action-buttons .delete-btn:hover {
+    background-color: #FCE8E8;
+    color: var(--red-indicator)
+}
+
+.goal-card[hidden] {
+    display: none;
+}
+
+@media (max-width: 480px) {
+
+    .goals-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .goal-card {
+        width: 100%;
+    }
+
+    .goal-card-actions {
+        flex-wrap: wrap;
+    }
+
+}

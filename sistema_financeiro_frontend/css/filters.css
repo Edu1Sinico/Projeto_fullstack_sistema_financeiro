@@ -14,6 +14,29 @@
     grid-template-columns: 2fr repeat(5, minmax(0, 1fr));
 }
 
+.goals-toolbar {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px auto;
+    align-items: center;
+    gap: 15px;
+
+    padding-bottom: 12px;
+    border-bottom: 3px solid #EAEAEA;
+}
+
+.goals-toolbar .search-bar {
+    width: 100%;
+    max-width: 500px;
+}
+
+.goals-toolbar .add-btn {
+    width: auto;
+    min-width: 150px;
+    padding: 0 15px;
+}
+
 .search-bar {
     position: relative;
 
@@ -210,6 +233,15 @@
     .transactions-toolbar .add-btn {
         grid-column: 1 / -1;
     }
+
+    .goals-toolbar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .goals-toolbar .search-bar {
+        grid-column: 1 / -1;
+        max-width: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -217,5 +249,15 @@
     .toolbar,
     .transactions-toolbar {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .goals-toolbar {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .goals-toolbar .search-bar,
+    .goals-toolbar .add-btn {
+        width: 100%;
+        grid-column: 1 / -1;
     }
 }

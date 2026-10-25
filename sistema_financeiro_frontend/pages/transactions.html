@@ -169,8 +169,8 @@
                 </thead>
 
                 <tbody>
-                    <tr class="table-row" data-description="Entrada para teste" data-date="2026-10-13"
-                        data-account="Conta do banco" data-category="Salário" data-type="Receita">
+                    <tr class="table-row" data-description="Entrada para teste" data-date="2026-10-13" data-account="1"
+                        data-category="1" data-type="Receita">
 
                         <td>13/10/2026</td>
                         <td>Entrada para teste</td>
@@ -188,8 +188,8 @@
                         </td>
                     </tr>
 
-                    <tr class="table-row" data-description="Saída para teste" data-date="2026-10-13"
-                        data-account="Conta do banco" data-category="Pagamento" data-type="Despesa">
+                    <tr class="table-row" data-description="Saída para teste" data-date="2026-10-13" data-account="1"
+                        data-category="5" data-type="Despesa">
 
                         <td>13/10/2026</td>
                         <td>Saída para teste</td>
@@ -220,3 +220,99 @@
 
     </div>
 </section>
+
+<!-- Modal de cadastro de transações -->
+<div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="transactionModalTitle" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content transaction-modal system-modal">
+
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+                <h2 class="modal-title" id="transactionModalTitle">
+                    <i class="bi bi-arrow-left-right"></i>
+                    Adicionar transação
+                </h2>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+
+            <!-- Formulário -->
+            <form id="transactionForm" class="system-form">
+
+                <div class="modal-body">
+
+                    <!-- Data -->
+                    <div class="transaction-form-field system-form-field">
+                        <label for="transactionDate">Data</label>
+
+                        <input type="date" id="transactionDate" name="date" class="form-control" required>
+                    </div>
+
+                    <!-- Conta -->
+                    <div class="transaction-form-field system-form-field">
+                        <label for="transactionAccount">Conta</label>
+
+                        <select id="transactionAccount" name="accountId" class="form-select" required>
+
+                            <option value="" selected disabled>
+                                Selecione uma conta
+                            </option>
+
+                            <!-- Contas inseridas pelo JavaScript -->
+
+                        </select>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="transaction-form-field system-form-field">
+                        <label for="transactionCategory">Categoria</label>
+
+                        <select id="transactionCategory" name="categoryId" class="form-select" required>
+
+                            <option value="" selected disabled>
+                                Selecione uma categoria
+                            </option>
+
+                            <!-- Categorias inseridas pelo JavaScript -->
+
+                        </select>
+                    </div>
+
+                    <!-- Descrição -->
+                    <div class="transaction-form-field system-form-field">
+                        <label for="transactionDescription">Descrição</label>
+
+                        <input type="text" id="transactionDescription" name="description" class="form-control"
+                            maxlength="150" required>
+                    </div>
+
+                    <!-- Valor -->
+                    <div class="transaction-form-field system-form-field">
+                        <label for="transactionAmount">Valor</label>
+
+                        <input type="number" id="transactionAmount" name="amount" class="form-control" min="0.01"
+                            step="0.01" placeholder="R$ 0,00" required>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé -->
+                <div class="modal-footer">
+
+                    <button type="button" class="cancel-btn" data-bs-dismiss="modal">
+                        <span class="cancel-btn-label">Cancelar</span>
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        + Adicionar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

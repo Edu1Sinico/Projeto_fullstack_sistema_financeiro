@@ -70,6 +70,10 @@
     color: var(--sidebar-bg);
 }
 
+.table-row[hidden] {
+    display: none;
+}
+
 
 .data-table .delete-btn:hover {
     background-color: #FCE8E8;

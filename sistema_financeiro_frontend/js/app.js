@@ -35,6 +35,14 @@ async function loadPage(page) {
             initTransactions();
         }
 
+        if (page === "categories") {
+            initCategories();
+        }
+
+        if (page === "goals") {
+            initGoals();
+        }
+
         return true;
 
     } catch (error) {

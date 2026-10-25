@@ -6,6 +6,120 @@ function initTransactions() {
     updateTransactionCategories();
 
     initTransactionAccountFilter();
+
+    initTransactionSearch();
+
+    initTransactionModal();
+
+    filterTransactions();
+}
+
+// Funcionalidade de pesquisas
+function initTransactionSearch() {
+
+    const searchInput = document.querySelector(
+        ".transactions-search input"
+    );
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener("input", () => {
+        filterTransactions();
+    });
+}
+
+// Funcionalidade dos filtros
+function filterTransactions() {
+
+    // Elementos da tabela
+    const rows = document.querySelectorAll(
+        ".transactions-table tbody tr.table-row"
+    );
+
+    // Pesquisa textual
+    const search = document.querySelector(
+        ".transactions-search input"
+    )?.value.toLowerCase().trim() ?? "";
+
+    // Período
+    const startDate = document.querySelector(
+        ".transactions-period-filter #start-date"
+    )?.value ?? "";
+
+    const endDate = document.querySelector(
+        ".transactions-period-filter #end-date"
+    )?.value ?? "";
+
+    // Filtros de múltipla seleção
+    const selectedTypes = getSelectedFilterValues(
+        ".transactions-type-filter"
+    );
+
+    const selectedCategories = getSelectedFilterValues(
+        ".transactions-category-filter"
+    );
+
+    const selectedAccounts = getSelectedFilterValues(
+        ".transactions-account-filter"
+    );
+
+    // Impede resultados para intervalos inválidos
+    const invalidPeriod = Boolean(
+        startDate && endDate && startDate > endDate
+    );
+
+    let visibleRows = 0;
+
+    rows.forEach(row => {
+
+        const description = row.dataset.description.toLowerCase();
+        const date = row.dataset.date;
+        const type = row.dataset.type;
+        const category = row.dataset.category;
+        const account = row.dataset.account;
+
+        // Pesquisa
+        const matchesSearch = description.includes(search);
+
+        // Período
+        const matchesStartDate = !startDate || date >= startDate;
+        const matchesEndDate = !endDate || date <= endDate;
+
+        // Tipo
+        const matchesType =
+            selectedTypes === null ||
+            selectedTypes.includes(type);
+
+        // Categoria
+        const matchesCategory =
+            selectedCategories === null ||
+            selectedCategories.includes(category);
+
+        // Conta
+        const matchesAccount =
+            selectedAccounts === null ||
+            selectedAccounts.includes(account);
+
+        // Resultado combinado
+        const isVisible =
+            !invalidPeriod &&
+            matchesSearch &&
+            matchesStartDate &&
+            matchesEndDate &&
+            matchesType &&
+            matchesCategory &&
+            matchesAccount;
+
+        row.hidden = !isVisible;
+
+        if (isVisible) {
+            visibleRows++;
+        }
+
+    });
+
+    updateTransactionEmptyState(visibleRows, rows.length);
+
 }
 
 // Filtro de período das transações
@@ -41,6 +155,7 @@ function initTransactionPeriodFilter() {
             );
 
             endDate.reportValidity();
+            filterTransactions();
             return;
         }
 
@@ -70,6 +185,7 @@ function initTransactionPeriodFilter() {
             selectedPeriod.textContent = "Período";
         }
 
+        filterTransactions();
     }
 
     // Eventos dos campos de data
@@ -146,6 +262,7 @@ function initTransactionTypeFilter() {
 
         updateLabel();
         updateTransactionCategories();
+        filterTransactions();
 
     });
 
@@ -159,6 +276,7 @@ function initTransactionTypeFilter() {
 
             updateLabel();
             updateTransactionCategories();
+            filterTransactions()
 
         });
 
@@ -242,6 +360,7 @@ function updateTransactionCategories() {
         allCheckbox.checked = true;
 
         label.textContent = "Categoria";
+        filterTransactions();
 
     });
 
@@ -262,6 +381,8 @@ function updateTransactionCategories() {
             else {
                 label.textContent = `${selected.length} categorias`;
             }
+
+            filterTransactions();
 
         });
 
@@ -360,6 +481,7 @@ function initTransactionAccountFilter() {
         allCheckbox.checked = true;
 
         updateLabel();
+        filterTransactions();
 
     });
 
@@ -373,8 +495,127 @@ function initTransactionAccountFilter() {
             allCheckbox.checked = selected.length === 0;
 
             updateLabel();
+            filterTransactions();
 
         });
+
+    });
+
+
+}
+
+// Função auxíliar para os filtros
+function getSelectedFilterValues(filterSelector) {
+
+    const filter = document.querySelector(filterSelector);
+
+    if (!filter) return null;
+
+    const allCheckbox = filter.querySelector(
+        'input[data-value="all"]'
+    );
+
+    // Sem restrição quando a opção "Todos" está marcada
+    if (allCheckbox?.checked) {
+        return null;
+    }
+
+    const selected = filter.querySelectorAll(
+        'input[type="checkbox"]:checked:not([data-value="all"])'
+    );
+
+    return [...selected].map(option => option.dataset.value);
+
+}
+
+// Modifica o estado da tabela vazia
+function updateTransactionEmptyState(visibleRows, totalRows) {
+
+    const tableSection = document.querySelector(
+        ".transactions-table-section"
+    );
+
+    if (!tableSection) return;
+
+    const tableContainer = tableSection.querySelector(
+        ".table-responsive"
+    );
+
+    const emptyState = tableSection.querySelector(
+        ".transactions-empty-state"
+    );
+
+    const emptyMessage = emptyState.querySelector(
+        ".transactions-empty-message"
+    );
+
+    const isEmpty = visibleRows === 0;
+
+    tableSection.classList.toggle("is-empty", isEmpty);
+
+    tableContainer.classList.toggle("d-none", isEmpty);
+
+    emptyState.classList.toggle("d-none", !isEmpty);
+
+    if (isEmpty) {
+
+        emptyMessage.textContent = totalRows === 0
+            ? "Não há transações cadastradas."
+            : "Nenhuma transação encontrada para os filtros selecionados.";
+
+    }
+
+}
+
+// Realiza o preenchimento do modal de cadastro
+function initTransactionModal() {
+
+    const modal = document.querySelector("#transactionModal");
+
+    if (!modal) return;
+
+    const accountSelect = modal.querySelector("#transactionAccount");
+    const categorySelect = modal.querySelector("#transactionCategory");
+    const dateInput = modal.querySelector("#transactionDate");
+
+    // Preencher contas
+    transactionAccounts.forEach(account => {
+
+        const option = document.createElement("option");
+
+        option.value = account.id;
+        option.textContent = account.name;
+
+        accountSelect.appendChild(option);
+
+    });
+
+    // Preencher categorias
+    transactionCategories.forEach(category => {
+
+        const option = document.createElement("option");
+
+        option.value = category.id;
+        option.textContent = category.name;
+
+        categorySelect.appendChild(option);
+
+    });
+
+    // Definir data atual ao abrir o modal
+    modal.addEventListener("show.bs.modal", () => {
+
+        if (!dateInput.value) {
+
+            const today = new Date();
+
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, "0");
+            const day = String(today.getDate()).padStart(2, "0");
+
+            dateInput.value = `${year}-${month}-${day}`;
+
+        }
 
     });
 
