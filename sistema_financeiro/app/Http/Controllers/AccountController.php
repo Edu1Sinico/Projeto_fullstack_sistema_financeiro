@@ -27,6 +27,7 @@ class AccountController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:100'],
             'type' => ['required', Rule::in(Account::TYPES)],
+            'status' => ['sometimes', Rule::in(Account::STATUSES)],
             'balance' => ['sometimes', 'numeric', 'min:0'],
         ]);
 
@@ -42,7 +43,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Altera apenas nome e tipo. O saldo não é editado diretamente porque
+     * Altera nome, tipo e status. O saldo não é editado diretamente porque
      * suas mudanças devem acontecer por meio das transações financeiras.
      */
     public function update(Request $request, int $account): JsonResponse
@@ -51,6 +52,7 @@ class AccountController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:100'],
             'type' => ['required', Rule::in(Account::TYPES)],
+            'status' => ['required', Rule::in(Account::STATUSES)],
         ]);
 
         $account->update($data);

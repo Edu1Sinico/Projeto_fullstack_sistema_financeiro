@@ -1,0 +1,56 @@
+:root {
+    --icon-size: 25px;
+}
+
+.system-title {
+    font-family: var(--title-font);
+    font-size: 16px;
+    margin: 0;
+    color: var(--font-color-darkgray);
+}
+
+.user-section {
+    padding: 10px;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.notify-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: var(--icon-size);
+    color: var(--accent-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.notify-btn:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.account-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: var(--icon-size);
+    color: #ffffff;
+    background-color: var(--accent-color);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-dropdown .dropdown-item:active{
+    color: #000000;
+    background-color: var(--font-color-lightgray);
+}

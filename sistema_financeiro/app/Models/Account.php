@@ -11,13 +11,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $user_id
  * @property string $name
  * @property string $type
+ * @property string $status
  * @property string $balance
  */
 class Account extends Model
 {
     public const TYPES = ['savings', 'checking', 'wallet'];
 
-    protected $fillable = ['user_id', 'name', 'type', 'balance'];
+    public const STATUSES = ['active', 'inactive'];
+
+    protected $fillable = ['user_id', 'name', 'type', 'status', 'balance'];
 
     protected function casts(): array
     {
@@ -34,5 +37,10 @@ class Account extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
     }
 }

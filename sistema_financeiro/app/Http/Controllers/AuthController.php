@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class AuthController extends Controller
 {
@@ -86,17 +87,31 @@ class AuthController extends Controller
     {
         return response()->json([
             'message' => 'Logout realizado. Remova o token no front-end.',
-        ]);
+        ])->withoutCookie('finaxis_token');
     }
 
     /** Monta a resposta padronizada usada pelo cadastro e pelo login. */
     private function tokenResponse(User $user, int $status = 200): JsonResponse
     {
-        return response()->json([
-            'access_token' => $this->jwt->createToken($user),
+        $token = $this->jwt->createToken($user);
+
+        $response = response()->json([
+            'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => $this->jwt->ttlInSeconds(),
             'user' => $user,
         ], $status);
+
+        // O cookie permite que as páginas Blade usem o mesmo JWT sem expor o
+        // token ao JavaScript. O Bearer continua disponível para Postman e apps.
+        return $response->withCookie(new Cookie(
+            name: 'finaxis_token',
+            value: $token,
+            expire: time() + $this->jwt->ttlInSeconds(),
+            path: '/',
+            secure: app()->environment('production'),
+            httpOnly: true,
+            sameSite: Cookie::SAMESITE_LAX,
+        ));
     }
 }

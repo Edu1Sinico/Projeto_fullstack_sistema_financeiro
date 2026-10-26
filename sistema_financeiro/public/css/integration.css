@@ -1,0 +1,105 @@
+/* Ajustes da integração Blade sem alterar a identidade visual original. */
+.profile-description {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 6px;
+    row-gap: 2px;
+    line-height: 1.35;
+}
+
+.profile-description .profile-separator {
+    flex: 0 0 auto;
+}
+
+.profile-description .user-email {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.app-feedback:not(.d-none) {
+    position: fixed;
+    top: 82px;
+    left: calc(50% + 137px);
+    z-index: 1080;
+    width: min(560px, calc(100vw - 40px));
+    margin: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+}
+
+.page-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 58px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.page-notice i {
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+.table-section.is-empty {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-section.is-empty > .empty-state:not(.d-none) {
+    flex: 1;
+    min-height: 430px;
+}
+
+.dashboard-panel .panel-content {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+.dashboard-panel .panel-content > .transactions-list,
+.dashboard-panel .panel-content > .goals-list,
+.dashboard-panel .panel-content > .accounts-list {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.dashboard-panel .panel-empty-state {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+}
+
+.dashboard-panel .transaction-item,
+.dashboard-panel .goal-item,
+.dashboard-panel .account-item {
+    flex-shrink: 0;
+}
+
+.dashboard .panel-filters {
+    min-height: 40px;
+}
+
+@media (max-width: 1200px) {
+    .app-feedback:not(.d-none) {
+        left: calc(50% + 42.5px);
+    }
+}
+
+@media (max-width: 768px) {
+    .app-feedback:not(.d-none) {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .page-notice {
+        align-items: flex-start;
+        padding: 14px;
+    }
+}

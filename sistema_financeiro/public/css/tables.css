@@ -1,0 +1,125 @@
+/* Seção da tabela de contas */
+.table-section {
+    margin-top: 15px;
+    padding: 15px;
+
+    height: 500px;
+    min-height: 500px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    background-color: var(--surface-bg);
+    color: var(--text-primary);
+
+    border-radius: 10px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.table-section > .table-responsive {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+.table-section.is-empty {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-section.is-empty .empty-state {
+    flex: 1;
+}
+
+/* Tabela */
+.data-table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* Variáveis do Bootstrap aplicadas às tabelas */
+.data-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text-primary);
+    --bs-table-border-color: var(--divider-color);
+}
+
+/* Mantém o fundo transparente nas células */
+.data-table> :not(caption)>*>* {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.table-header {
+    border-bottom: 2px solid;
+    border-bottom: 2px solid var(--divider-color);
+}
+
+.data-table th {
+    font-size: 14.5px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.data-table td {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.data-table th,
+.data-table td {
+    white-space: nowrap;
+}
+
+.data-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--surface-bg);
+}
+
+.data-table td.positive {
+    color: var(--green-indicator);
+}
+
+.data-table td.negative {
+    color: var(--red-indicator);
+}
+
+.data-table td button {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+
+    background-color: transparent;
+    border: none;
+
+    color: var(--text-secondary);
+}
+
+.data-table td button:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+.table-row[hidden] {
+    display: none;
+}
+
+
+.data-table .delete-btn:hover {
+    background-color: rgba(189, 46, 46, 0.15);
+    color: var(--red-indicator);
+}
+
+.data-table td button i {
+    font-size: 15px;
+}
+
+.accounts-empty-state {
+    min-height: 450px;
+}

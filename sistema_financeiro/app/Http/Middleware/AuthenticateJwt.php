@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use App\Services\JwtService;
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +16,10 @@ class AuthenticateJwt
 
     public function handle(Request $request, Closure $next): Response
     {
-        $token = $request->bearerToken();
+        $token = $request->bearerToken() ?? $request->cookie('finaxis_token');
 
         if ($token === null) {
-            return $this->unauthorized('Token não informado.');
+            return $this->unauthorized($request, 'Token não informado.');
         }
 
         try {
@@ -28,11 +27,11 @@ class AuthenticateJwt
             $userId = filter_var($payload->sub ?? null, FILTER_VALIDATE_INT);
             $user = $userId === false ? null : User::query()->find($userId);
         } catch (Throwable) {
-            return $this->unauthorized('Token inválido ou expirado.');
+            return $this->unauthorized($request, 'Token inválido ou expirado.');
         }
 
         if ($user === null) {
-            return $this->unauthorized('Usuário do token não encontrado.');
+            return $this->unauthorized($request, 'Usuário do token não encontrado.');
         }
 
         Auth::setUser($user);
@@ -41,8 +40,12 @@ class AuthenticateJwt
         return $next($request);
     }
 
-    private function unauthorized(string $message): JsonResponse
+    private function unauthorized(Request $request, string $message): Response
     {
+        if (! $request->is('api/*') && ! $request->expectsJson()) {
+            return redirect()->route('login')->with('error', $message);
+        }
+
         return response()->json(['message' => $message], 401);
     }
 }

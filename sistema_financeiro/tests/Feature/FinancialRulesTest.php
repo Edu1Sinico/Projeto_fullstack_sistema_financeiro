@@ -115,28 +115,22 @@ test('calculates goal progress from transaction contributions', function () {
         'balance' => 1000,
     ]);
     $category = $user->categories()->create(['name' => 'Investimentos', 'type' => 'income']);
-    $transaction = Transaction::create([
-        'account_id' => $account->id,
-        'category_id' => $category->id,
-        'description' => 'Reserva mensal',
-        'amount' => 1000,
-        'type' => 'income',
-        'transaction_date' => '2026-09-19',
-    ]);
     $goal = $user->goals()->create([
         'title' => 'Reserva de emergência',
         'target_amount' => 2000,
     ]);
 
     $response = $this->withToken($token)->postJson("/api/goals/{$goal->id}/contributions", [
-        'transaction_id' => $transaction->id,
-        'contributed_amount' => 600,
+        'account_id' => $account->id,
+        'amount' => 600,
     ]);
 
     $response->assertCreated()
-        ->assertJsonPath('current_amount', '600.00')
-        ->assertJsonPath('completed', false)
-        ->assertJsonPath('progress_percentage', 30);
+        ->assertJsonPath('goal.current_amount', '600.00')
+        ->assertJsonPath('goal.completed', false)
+        ->assertJsonPath('goal.progress_percentage', 30);
+
+    expect($account->fresh()->balance)->toBe('400.00');
 });
 
 test('does not change the type of a category already used by a transaction', function () {
@@ -170,21 +164,34 @@ test('does not allow contributions above the goal target', function () {
         'balance' => 1000,
     ]);
     $category = $user->categories()->create(['name' => 'Salário', 'type' => 'income']);
-    $transaction = Transaction::create([
-        'account_id' => $account->id,
-        'category_id' => $category->id,
-        'description' => 'Receita',
-        'amount' => 1000,
-        'type' => 'income',
-        'transaction_date' => '2026-09-19',
-    ]);
     $goal = $user->goals()->create([
         'title' => 'Compra planejada',
         'target_amount' => 500,
     ]);
 
     $this->withToken($token)->postJson("/api/goals/{$goal->id}/contributions", [
-        'transaction_id' => $transaction->id,
-        'contributed_amount' => 600,
-    ])->assertUnprocessable()->assertJsonValidationErrors('contributed_amount');
+        'account_id' => $account->id,
+        'amount' => 600,
+    ])->assertUnprocessable()->assertJsonValidationErrors('amount');
+});
+
+test('inactive accounts and categories remain manageable but are marked for frontend filters', function () {
+    [$user, $token] = authenticatedUser();
+
+    $account = $this->withToken($token)->postJson('/api/accounts', [
+        'name' => 'Conta arquivada',
+        'type' => 'checking',
+        'status' => 'inactive',
+        'balance' => 0,
+    ])->assertCreated()->json();
+
+    $category = $this->withToken($token)->postJson('/api/categories', [
+        'name' => 'Categoria arquivada',
+        'type' => 'expense',
+        'status' => 'inactive',
+    ])->assertCreated()->json();
+
+    expect($account['status'])->toBe('inactive');
+    expect($category['status'])->toBe('inactive');
+    expect($user->accounts()->where('status', 'active')->count())->toBe(0);
 });

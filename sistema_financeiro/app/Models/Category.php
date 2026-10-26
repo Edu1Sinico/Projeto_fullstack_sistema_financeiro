@@ -11,12 +11,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $user_id
  * @property string $name
  * @property string $type
+ * @property string $status
  */
 class Category extends Model
 {
     public const TYPES = ['income', 'expense'];
 
-    protected $fillable = ['user_id', 'name', 'type'];
+    public const STATUSES = ['active', 'inactive'];
+
+    protected $fillable = ['user_id', 'name', 'type', 'status'];
 
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
@@ -28,5 +31,10 @@ class Category extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
     }
 }

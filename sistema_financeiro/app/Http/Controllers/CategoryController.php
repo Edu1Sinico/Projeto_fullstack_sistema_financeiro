@@ -75,7 +75,7 @@ class CategoryController extends Controller
      * Reúne as regras compartilhadas por criação e edição.
      * O nome é único por usuário e tipo, mas pode existir para outro usuário.
      *
-     * @return array{name: string, type: string}
+     * @return array{name: string, type: string, status: string}
      */
     private function validated(Request $request, ?int $ignoreId = null): array
     {
@@ -87,6 +87,7 @@ class CategoryController extends Controller
                     ->where('type', $request->input('type')))->ignore($ignoreId),
             ],
             'type' => ['required', Rule::in(Category::TYPES)],
+            'status' => ['sometimes', Rule::in(Category::STATUSES)],
         ]);
     }
 

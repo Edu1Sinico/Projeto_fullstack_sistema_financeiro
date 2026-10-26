@@ -14,6 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // O JWT nasce em uma rota de API (sem o middleware de criptografia de
+        // cookies) e também é lido pelas páginas web. Mantê-lo fora da
+        // criptografia do Laravel evita que a navegação Blade descarte o cookie.
+        $middleware->encryptCookies(except: ['finaxis_token']);
+
         $middleware->alias([
             'jwt.auth' => AuthenticateJwt::class,
         ]);

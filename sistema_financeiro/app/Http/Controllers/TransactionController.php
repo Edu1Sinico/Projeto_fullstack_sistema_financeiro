@@ -85,6 +85,11 @@ class TransactionController extends Controller
 
         $transaction = DB::transaction(function () use ($request, $transaction, $data) {
             $transaction = $this->findTransaction($request, $transaction);
+
+            if ($transaction->goals()->exists()) {
+                abort(409, 'Contribuições de metas devem ser alteradas pela tela de metas.');
+            }
+
             $this->categoryForUser($request, $data['category_id'], $data['type']);
 
             // O novo valor precisa continuar cobrindo tudo o que já foi destinado às metas.
@@ -134,6 +139,11 @@ class TransactionController extends Controller
     {
         DB::transaction(function () use ($request, $transaction) {
             $transaction = $this->findTransaction($request, $transaction);
+
+            if ($transaction->goals()->exists()) {
+                abort(409, 'Contribuições de metas devem ser removidas pela tela de metas.');
+            }
+
             $account = $this->lockedAccount($request, $transaction->account_id);
 
             $account->update([

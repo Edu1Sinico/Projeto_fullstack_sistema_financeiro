@@ -53,68 +53,104 @@ class GoalController extends Controller
         return response()->json($goal);
     }
 
-    /** Exclui a meta; a chave estrangeira remove seus vínculos de contribuição. */
+    /**
+     * Exclui a meta e devolve às contas os valores reservados por contribuições.
+     * Tudo acontece na mesma transação para não deixar saldos inconsistentes.
+     */
     public function destroy(Request $request, int $goal): JsonResponse
     {
-        $this->findGoal($request, $goal)->delete();
+        DB::transaction(function () use ($request, $goal) {
+            $goal = $this->findGoal($request, $goal);
+
+            foreach ($goal->transactions()->with('account')->get() as $transaction) {
+                $transaction->account()->lockForUpdate()->increment('balance', $transaction->pivot->contributed_amount);
+                $transaction->delete();
+            }
+
+            $goal->delete();
+        });
 
         return response()->json(null, 204);
     }
 
     /**
-     * Cria ou atualiza a contribuição de uma transação para uma meta.
-     * A operação valida tanto o limite da transação quanto o objetivo da meta.
+     * Reserva dinheiro de uma conta para a meta. Uma transação de despesa é
+     * criada automaticamente, permitindo auditar a movimentação no extrato.
      */
     public function contribute(Request $request, int $goal): JsonResponse
     {
         $data = $request->validate([
-            'transaction_id' => ['required', 'integer'],
-            'contributed_amount' => ['required', 'numeric', 'gt:0'],
+            'account_id' => ['required', 'integer'],
+            'amount' => ['required', 'numeric', 'gt:0'],
         ]);
 
         $goal = $this->findGoal($request, $goal);
-        $transaction = $this->findTransaction($request, $data['transaction_id']);
+        $transaction = DB::transaction(function () use ($request, $goal, $data) {
+            $account = $request->user()->accounts()
+                ->where('status', 'active')
+                ->lockForUpdate()
+                ->findOrFail($data['account_id']);
 
-        DB::transaction(function () use ($goal, $transaction, $data) {
-            // Soma o que essa transação já destinou a outras metas.
-            $otherContributions = (float) DB::table('goal_transaction')
-                ->where('transaction_id', $transaction->id)
-                ->where('goal_id', '!=', $goal->id)
-                ->sum('contributed_amount');
-
-            if ($otherContributions + (float) $data['contributed_amount'] > (float) $transaction->amount) {
+            if ((float) $data['amount'] > (float) $account->balance) {
                 throw ValidationException::withMessages([
-                    'contributed_amount' => 'As contribuições não podem superar o valor da transação.',
+                    'amount' => 'Saldo insuficiente para realizar esta contribuição.',
                 ]);
             }
 
-            // Desconsidera um vínculo anterior com esta transação para permitir sua edição.
-            $currentWithoutThisTransaction = (float) DB::table('goal_transaction')
-                ->where('goal_id', $goal->id)
-                ->where('transaction_id', '!=', $transaction->id)
-                ->sum('contributed_amount');
-
-            if ($currentWithoutThisTransaction + (float) $data['contributed_amount'] > (float) $goal->target_amount) {
+            if ((float) $goal->current_amount + (float) $data['amount'] > (float) $goal->target_amount) {
                 throw ValidationException::withMessages([
-                    'contributed_amount' => 'A contribuição não pode ultrapassar o objetivo da meta.',
+                    'amount' => 'A contribuição não pode ultrapassar o valor restante da meta.',
                 ]);
             }
 
-            // Atualiza o vínculo se ele existir ou cria um novo sem duplicar o par de IDs.
-            $goal->transactions()->syncWithoutDetaching([
-                $transaction->id => ['contributed_amount' => $data['contributed_amount']],
+            $category = $request->user()->categories()->firstOrCreate([
+                'name' => 'Contribuição para metas',
+                'type' => 'expense',
+            ], [
+                'status' => 'inactive',
             ]);
+
+            // Garante que a categoria interna nunca apareça nos filtros de cadastro.
+            if ($category->status !== 'inactive') {
+                $category->update(['status' => 'inactive']);
+            }
+
+            $account->decrement('balance', $data['amount']);
+
+            $transaction = $account->transactions()->create([
+                'category_id' => $category->id,
+                'description' => "Contribuição: {$goal->title}",
+                'amount' => $data['amount'],
+                'type' => 'expense',
+                'transaction_date' => now()->toDateString(),
+            ]);
+
+            $goal->transactions()->attach($transaction->id, [
+                'contributed_amount' => $data['amount'],
+            ]);
+
+            return $transaction;
         });
 
-        return response()->json($goal->fresh()->load('transactions'), 201);
+        return response()->json([
+            'goal' => $goal->fresh()->load('transactions'),
+            'transaction' => $transaction->load('account:id,name', 'category:id,name,type'),
+        ], 201);
     }
 
-    /** Remove apenas o vínculo; a transação financeira e a meta continuam existindo. */
+    /** Remove uma contribuição, apaga sua transação e devolve o valor à conta. */
     public function removeContribution(Request $request, int $goal, int $transaction): JsonResponse
     {
-        $goal = $this->findGoal($request, $goal);
-        $transaction = $this->findTransaction($request, $transaction);
-        $goal->transactions()->detach($transaction->id);
+        DB::transaction(function () use ($request, $goal, $transaction) {
+            $goal = $this->findGoal($request, $goal);
+            $transaction = $this->findTransaction($request, $transaction);
+            $contribution = $goal->transactions()->whereKey($transaction->id)->firstOrFail();
+
+            $account = $request->user()->accounts()->lockForUpdate()->findOrFail($transaction->account_id);
+            $account->increment('balance', $contribution->pivot->contributed_amount);
+            $goal->transactions()->detach($transaction->id);
+            $transaction->delete();
+        });
 
         return response()->json(null, 204);
     }
