@@ -3,6 +3,7 @@
 }
 
 .system-title {
+    font-family: var(--title-font);
     font-size: 16px;
     margin: 0;
     color: var(--font-color-darkgray);

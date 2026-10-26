@@ -1,4 +1,6 @@
 :root {
+    --title-font: 'Poppins', Arial, sans-serif;
+
     /* Identidade visual */
     --sidebar-bg: #292E36;
     --accent-color: #FF8000;
@@ -124,7 +126,7 @@ body {
 
 .title-section {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: var(--title-font);
     font-size: 36px;
     font-weight: 700;
     line-height: 1.2;
