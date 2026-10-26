@@ -142,22 +142,16 @@
 }
 
 .auth-logo {
-    width: 75px;
-    height: 75px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background-color: #D9D9D9;
-
+    width: 100%;
+    max-width: 250px;
     margin-bottom: 20px;
 }
 
-.auth-logo span {
-    font-size: 14px;
-    color: var(--sidebar-bg);
+.auth-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .auth-form-title {
