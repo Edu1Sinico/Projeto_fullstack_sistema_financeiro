@@ -1,11 +1,20 @@
 :root {
+    /* Identidade visual */
     --sidebar-bg: #292E36;
     --accent-color: #FF8000;
-    --content-bg: #FEFEFF;
+
+    /* Cores principais */
+    --content-bg: #FFFFFF;
+    --surface-bg: #FFFFFF;
+    --text-primary: #292E36;
+    --text-secondary: #757575;
+    --divider-color: #EAEAEA;
+    --input-bg: #FFFFFF;
+
+    /* Variáveis existentes */
     --border-color: #4C5666;
     --font-color-darkgray: #757575;
     --font-color-gray: #CACACA;
-    /* Fonte padrão para filtros */
     --font-color-lightgray: #BEBEBE;
 
     --icon-size: 20px;
@@ -14,6 +23,25 @@
     --green-indicator: #34A641;
     --red-indicator: #BD2E2E;
 
+    --hover-bg: #F0F0F0;
+}
+
+/* Variáveis do tema escuro */
+body.dark-mode {
+    --content-bg: #313945;
+    --surface-bg: #313945;
+
+    --text-primary: #EFEFEF;
+    --text-secondary: #CACACA;
+
+    --divider-color: #4C5666;
+    --input-bg: #394351;
+
+    --font-color-darkgray: #CACACA;
+    --font-color-gray: #BEBEBE;
+    --font-color-lightgray: #CACACA;
+
+    --hover-bg: #394351;
 }
 
 * {
@@ -24,6 +52,9 @@
 
 body {
     font-family: Arial, sans-serif;
+
+    background-color: var(--content-bg);
+    color: var(--text-primary);
 }
 
 /* Estrutura geral da aplicação */
@@ -67,7 +98,7 @@ body {
 
     flex-shrink: 0;
 
-    background-color: #ffffff;
+    background-color: var(--content-bg);
 }
 
 /* Conteúdo interno do cabeçalho */
@@ -79,14 +110,14 @@ body {
     align-items: flex-end;
     justify-content: space-between;
 
-    border-bottom: 3px solid #EAEAEA;
+    border-bottom: 3px solid var(--divider-color);
 }
 
 /* Conteúdo principal */
 .app-main {
     flex: 1;
     padding: 28px;
-    background-color: #ffffff;
+    background-color: var(--content-bg);
 }
 
 /* Outros componentes */
@@ -97,7 +128,7 @@ body {
     font-size: 36px;
     font-weight: 700;
     line-height: 1.2;
-    color: var(--sidebar-bg);
+    color: var(--text-primary);
 }
 
 .main-top-section {

@@ -1,6 +1,4 @@
 /* Fundo escuro dos modais */
-
-
 .system-modal {
     background-color: #FFFFFF;
     border: none;
@@ -98,4 +96,76 @@
 
 .system-modal .modal-footer .save-btn:hover {
     background-color: #e87400;
+}
+
+/* Modal de alteração de senha */
+
+.password-modal .modal-title {
+    font-size: 20px;
+}
+
+.password-modal .modal-title i {
+    font-size: 28px;
+}
+
+/* Campos de senha */
+
+.password-modal .system-form-field {
+    margin-bottom: 12px;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-wrapper .form-control {
+    width: 100%;
+    padding-right: 45px;
+}
+
+/* Botão para mostrar ou ocultar senha */
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+
+    transform: translateY(-50%);
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background-color: transparent;
+
+    color: var(--font-color-darkgray);
+    cursor: pointer;
+}
+
+.password-toggle i {
+    font-size: 18px;
+}
+
+.password-toggle:hover {
+    color: var(--accent-color);
+}
+
+.password-toggle:focus-visible {
+    outline: 2px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+/* Mensagem de erro */
+
+.password-modal .password-error {
+    margin: 10px 5px 0;
+
+    color: var(--red-indicator);
+    font-size: 12px;
+    text-align: center;
 }

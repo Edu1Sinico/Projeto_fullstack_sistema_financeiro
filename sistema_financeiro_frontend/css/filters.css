@@ -23,7 +23,7 @@
     gap: 15px;
 
     padding-bottom: 12px;
-    border-bottom: 3px solid #EAEAEA;
+    border-bottom: 3px solid var(--divider-color);
 }
 
 .goals-toolbar .search-bar {
@@ -58,8 +58,9 @@
     border-radius: 5px;
 
     font-size: 14px;
-    color: var(--sidebar-bg);
-    background-color: var(--content-bg);
+
+    color: var(--text-primary);
+    background-color: var(--input-bg);
 }
 
 .search-bar i {
@@ -120,7 +121,10 @@
     min-width: 250px;
     padding: 15px;
 
-    border: 1px solid #EAEAEA;
+    background-color: var(--surface-bg);
+    color: var(--text-primary);
+
+    border: 1px solid var(--divider-color);
     border-radius: 10px;
 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
@@ -196,6 +200,36 @@
 
 .add-btn:hover {
     background-color: #258631;
+}
+
+/* Conteúdo dos menus dos filtros */
+.filter-menu-section .form-check-label,
+.filter-menu-section .date-filter-label {
+    color: var(--text-secondary);
+}
+
+/* Campos de data */
+.filter-menu-section .date-filter-input {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+
+    border: 1px solid var(--divider-color);
+}
+
+/* Ajuste do calendário no tema escuro */
+body.dark-mode .date-filter-input {
+    color-scheme: dark;
+}
+
+/* Hover das opções dos filtros */
+.filter-menu-section .dropdown-item {
+    color: var(--text-primary);
+}
+
+.filter-menu-section .dropdown-item:hover,
+.filter-menu-section .dropdown-item:focus {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
 }
 
 

@@ -1,0 +1,295 @@
+/* Modal de configurações */
+
+.settings-modal {
+    max-height: calc(100dvh - 40px);
+}
+
+.settings-modal .modal-title {
+    font-size: 20px;
+}
+
+.settings-modal .modal-title i {
+    font-size: 28px;
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.settings-form .modal-body {
+    overflow-y: auto;
+    min-height: 0;
+    padding: 15px 20px;
+}
+
+/* Seções */
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-section:last-child {
+    margin-bottom: 0;
+}
+
+.settings-section-title {
+    margin: 10px 0 5px;
+    padding-bottom: 5px;
+
+    border-bottom: 1px solid #EAEAEA;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--font-color-lightgray);
+}
+
+/* Foto de perfil */
+
+.settings-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 0;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.settings-avatar {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+}
+
+.settings-avatar i {
+    font-size: 30px;
+}
+
+.settings-profile-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sidebar-bg);
+}
+
+.settings-profile-hint {
+    margin-left: auto;
+
+    font-size: 11px;
+    color: var(--font-color-darkgray);
+}
+
+/* Linhas das configurações */
+
+.settings-row {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #EAEAEA;
+
+    font-size: 13px;
+    color: var(--sidebar-bg);
+}
+
+.settings-row-value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.settings-muted {
+    font-size: 12px;
+    color: var(--font-color-darkgray);
+}
+
+/* Edição do nome */
+
+.settings-row input[type="text"] {
+    width: 160px;
+    min-width: 0;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 5px;
+
+    background-color: transparent;
+    color: var(--font-color-darkgray);
+
+    text-align: right;
+    font-size: 12px;
+}
+
+.settings-row input[type="text"]:not([readonly]) {
+    border-color: var(--font-color-lightgray);
+    background-color: #FFFFFF;
+}
+
+.settings-row input[type="text"]:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
+}
+
+/* Botões de edição */
+
+.settings-icon-btn {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: transparent;
+    color: var(--font-color-darkgray);
+
+    cursor: pointer;
+}
+
+.settings-icon-btn i {
+    font-size: 19px;
+}
+
+.settings-icon-btn:hover:not(:disabled) {
+    background-color: #EAEAEA;
+    color: var(--accent-color);
+}
+
+.settings-icon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Selects */
+
+.settings-select {
+    max-width: 180px;
+
+    border: none;
+    background-color: transparent;
+
+    color: var(--font-color-darkgray);
+    font-size: 12px;
+    text-align: right;
+}
+
+.settings-select:disabled {
+    opacity: 1;
+}
+
+/* Switches */
+
+.settings-modal .form-check {
+    margin: 0;
+    padding-left: 2.5em;
+}
+
+.settings-modal .form-check-input {
+    cursor: pointer;
+}
+
+.settings-modal .form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.settings-modal .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem #f8cca0;
+}
+
+.settings-modal .form-check-input:disabled {
+    cursor: not-allowed;
+}
+
+/* Gerenciamento da conta */
+
+.settings-danger-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 15px 0;
+}
+
+.settings-danger-section strong {
+    font-size: 13px;
+    color: var(--red-indicator);
+}
+
+.settings-danger-section p {
+    margin: 5px 0 0;
+
+    font-size: 11px;
+    color: var(--font-color-darkgray);
+}
+
+.settings-delete-btn {
+    flex-shrink: 0;
+
+    padding: 8px 12px;
+
+    border: 1px solid var(--red-indicator);
+    border-radius: 5px;
+
+    background-color: transparent;
+    color: var(--red-indicator);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.settings-delete-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsividade */
+
+@media (max-width: 480px) {
+
+    .settings-form .modal-body {
+        padding: 12px;
+    }
+
+    .settings-profile-hint {
+        display: none;
+    }
+
+    .settings-row {
+        gap: 8px;
+    }
+
+    .settings-row input[type="text"] {
+        width: 120px;
+    }
+
+    .settings-danger-section {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}
