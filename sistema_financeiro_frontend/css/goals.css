@@ -17,7 +17,7 @@
     min-width: 0;
     padding: 12px;
 
-    background-color: var(--content-bg);
+    background-color: var(--surface-bg);
     border-radius: 10px;
 
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
@@ -32,7 +32,7 @@
     gap: 10px;
 
     padding-bottom: 5px;
-    border-bottom: 2px solid #EAEAEA;
+    border-bottom: 2px solid var(--divider-color);
 }
 
 .goal-card-title {
@@ -40,7 +40,7 @@
 
     font-size: 15px;
     font-weight: 600;
-    color: var(--sidebar-bg);
+    color: var(--text-primary);
 
     overflow-wrap: anywhere;
 }
@@ -81,7 +81,7 @@
 
     padding: 11px 0;
 
-    border-bottom: 1.5px solid #F0F0F0;
+    border-bottom: 1.5px solid var(--divider-color);
 }
 
 .goal-info-label {
@@ -93,7 +93,7 @@
 .goal-info-value {
     font-size: 13px;
     font-weight: bold;
-    color: var(--sidebar-bg);
+    color: var(--text-primary);
     text-align: right;
 }
 
@@ -118,7 +118,7 @@
     overflow: hidden;
 
     border-radius: 20px;
-    background-color: #D9D9D9;
+    background-color: var(--divider-color);
 }
 
 .goal-progress-fill {
@@ -133,7 +133,7 @@
 .goal-progress-percentage {
     font-size: 12px;
     font-weight: bold;
-    color: var(--sidebar-bg);
+    color: var(--text-primary);
 }
 
 /* Ações da meta */
@@ -190,8 +190,8 @@
 }
 
 .goal-action-buttons button:hover {
-    background-color: #EAEAEA;
-    color: var(--sidebar-bg);
+    background-color: var(--hover-bg);
+    color: var(--text-primary);
 }
 
 .goal-action-buttons .delete-btn {
@@ -278,4 +278,18 @@
         flex-wrap: wrap;
     }
 
+}
+/* Estados de interação no tema escuro */
+body.dark-mode .goal-action-buttons .delete-btn:hover {
+    background-color: rgba(189, 46, 46, 0.18);
+}
+
+body.dark-mode .goals-status-filter .form-check-input:not(:checked) {
+    background-color: var(--input-bg);
+    border-color: var(--text-secondary);
+}
+
+body.dark-mode .goals-status-filter .dropdown-divider {
+    border-color: var(--divider-color);
+    opacity: 1;
 }

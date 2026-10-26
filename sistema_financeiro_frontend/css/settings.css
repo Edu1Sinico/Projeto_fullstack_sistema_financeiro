@@ -39,7 +39,7 @@
     margin: 10px 0 5px;
     padding-bottom: 5px;
 
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid var(--divider-color);
 
     font-size: 14px;
     font-weight: 500;
@@ -54,7 +54,7 @@
     gap: 10px;
 
     padding: 12px 0;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid var(--divider-color);
 }
 
 .settings-avatar {
@@ -79,7 +79,7 @@
 .settings-profile-label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--sidebar-bg);
+    color: var(--text-primary);
 }
 
 .settings-profile-hint {
@@ -101,10 +101,10 @@
 
     padding: 10px 0;
 
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid var(--divider-color);
 
     font-size: 13px;
-    color: var(--sidebar-bg);
+    color: var(--text-primary);
 }
 
 .settings-row-value {
@@ -140,7 +140,7 @@
 
 .settings-row input[type="text"]:not([readonly]) {
     border-color: var(--font-color-lightgray);
-    background-color: #FFFFFF;
+    background-color: var(--input-bg);
 }
 
 .settings-row input[type="text"]:focus {
@@ -174,7 +174,7 @@
 }
 
 .settings-icon-btn:hover:not(:disabled) {
-    background-color: #EAEAEA;
+    background-color: var(--hover-bg);
     color: var(--accent-color);
 }
 
@@ -292,4 +292,15 @@
         flex-direction: column;
     }
 
+}
+/* Opções e switches no tema escuro */
+.settings-select option {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+}
+
+body.dark-mode .settings-modal .form-check-input:not(:checked) {
+    background-color: var(--input-bg);
+    border-color: var(--text-secondary);
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23cacaca'/%3e%3c/svg%3e");
 }

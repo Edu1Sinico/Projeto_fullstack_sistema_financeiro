@@ -1,6 +1,6 @@
-/* Fundo escuro dos modais */
+/* Aparência dos modais conforme o tema */
 .system-modal {
-    background-color: #FFFFFF;
+    background-color: var(--surface-bg);
     border: none;
     border-radius: 15px;
     padding: 5px 10px;
@@ -9,7 +9,7 @@
 
 /* Cabeçalho do Modal */
 .system-modal .modal-header {
-    border-bottom: 2px solid #EAEAEA;
+    border-bottom: 2px solid var(--divider-color);
 }
 
 .system-modal .modal-header .btn-close {
@@ -53,7 +53,7 @@
 
 /* Rodapé do Modal */
 .system-modal .modal-footer {
-    border-top: 2px solid #EAEAEA;
+    border-top: 2px solid var(--divider-color);
     display: flex;
     gap: 15px;
 }
@@ -168,4 +168,32 @@
     color: var(--red-indicator);
     font-size: 12px;
     text-align: center;
+}
+/* Campos e controles acompanham o tema da aplicação */
+.system-modal {
+    color: var(--text-primary);
+}
+
+.system-modal .form-control,
+.system-modal .form-select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--divider-color);
+}
+
+.system-modal .form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+body.dark-mode .system-modal {
+    color-scheme: dark;
+}
+
+body.dark-mode .system-modal .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+body.dark-mode .system-modal .form-select {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23efefef' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 }
