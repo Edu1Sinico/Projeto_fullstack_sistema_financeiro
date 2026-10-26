@@ -1,0 +1,339 @@
+/* Topo do menu lateral */
+.sidebar-top {
+    padding: 24px 20px;
+    gap: 32px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Marca do sistema */
+.logo {
+    width: 100%;
+    max-width: 235px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.text-section {
+    width: 100%;
+    margin: 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-color);
+
+    /* Precisa ser "Poppins" */
+    /* font-family: poppins; */
+    font-size: 12px;
+    color: #EFEFEF;
+}
+
+
+/* Seção de navegação */
+
+.sidebar-navigation {
+    padding: 0px 20px;
+    gap: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.page-btn {
+    padding: 10px;
+    border-radius: 5px;
+    line-height: 1.2;
+
+    display: flex;
+    align-items: center;
+    gap: var(--icon-gap);
+
+    font-size: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+
+    transition: background-color 0.15s ease-in-out;
+}
+
+.page-btn i {
+    font-size: var(--icon-size);
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.page-btn:hover {
+    background-color: var(--accent-color);
+}
+
+.page-btn.active {
+    background-color: var(--accent-color);
+}
+
+/* Base do menu lateral */
+
+.sidebar-bottom {
+    padding: 24px 20px;
+    margin-top: auto;
+}
+
+.account-section,
+.exit-section {
+    width: 100%;
+    height: 35px;
+    margin: 10px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.account-info {
+    display: flex;
+    align-items: center;
+}
+
+.account-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--accent-color);
+}
+
+.account-profile i {
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.account-info p {
+    color: #FFFFFF;
+    font-size: 12px;
+    padding-left: 5px;
+    margin: 0;
+}
+
+.config-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.config-btn i {
+    color: #FFFFFF;
+    font-size: 25px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.config-btn:hover {
+    background-color: var(--border-color);
+}
+
+.exit-btn {
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    border: none;
+    border-radius: 5px;
+    gap: var(--icon-gap);
+
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.exit-btn i {
+    font-size: var(--icon-size);
+}
+
+.exit-btn:hover {
+    background-color: var(--border-color);
+}
+
+/* Sidebar responsiva */
+
+@media (max-width: 1200px) {
+
+    .sidebar {
+        width: 75px;
+    }
+
+    .sidebar-top {
+        padding: 20px 5px;
+        align-items: center;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
+    /* Navegação */
+
+    .sidebar-navigation {
+        padding: 0 10px;
+        gap: 8px;
+        align-items: center;
+    }
+
+    /* Títulos das seções */
+
+    .sidebar-navigation .text-section {
+        width: 100%;
+        font-size: 12px;
+        text-align: center;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    /* Botões quadrados */
+
+    .page-btn {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 5px;
+    }
+
+    .page-btn i {
+        font-size: 22px;
+        line-height: 1;
+    }
+
+    /* Ocultar textos */
+
+    .page-btn span {
+        display: none;
+    }
+
+    /* Parte inferior */
+
+    .sidebar-bottom {
+        padding: 10px;
+        margin-top: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Título Conta */
+
+    .sidebar-bottom .text-section {
+        width: 100%;
+        font-size: 12px;
+        text-align: center;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Perfil e configurações */
+
+    .account-section {
+        width: 100%;
+        height: auto;
+        margin: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .account-info {
+        justify-content: center;
+    }
+
+    .account-profile {
+        width: 35px;
+        height: 35px;
+    }
+
+    .account-info .profile-name {
+        display: none;
+    }
+
+    /* Botão de configurações */
+
+    .config-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+    .config-btn i {
+        font-size: 22px;
+    }
+
+    /* Botão de sair */
+
+    .exit-section {
+        width: 100%;
+        height: auto;
+        margin: 8px 0 0;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    .exit-btn {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 5px;
+    }
+
+    .exit-btn span {
+        display: none;
+    }
+
+    .exit-btn i {
+        font-size: 22px;
+        line-height: 1;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 65px;
+    }
+
+}

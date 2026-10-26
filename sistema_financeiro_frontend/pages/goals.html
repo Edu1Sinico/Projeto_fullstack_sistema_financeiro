@@ -1,0 +1,384 @@
+<section class="goals">
+
+    <!-- Título da página -->
+    <div class="main-top-section">
+        <h1 class="title-section">Metas</h1>
+    </div>
+
+
+    <div class="goals-toolbar">
+        <!-- Filtro de pesquisa -->
+        <div class="goals-search search-bar">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Pesquisar" aria-label="Pesquisar metas">
+        </div>
+
+        <!-- Filtro de status -->
+        <div class="dropdown goals-status-filter filter">
+
+            <button type="button" class="status-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+
+                <span class="selected-goal-status">Status</span>
+
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">
+                    Selecione o status
+                </h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="goal-all-status" data-value="all" checked>
+
+                    <label class="form-check-label" for="goal-all-status">
+                        Todos os status
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="goal-not-started" data-value="Não iniciado">
+
+                    <label class="form-check-label" for="goal-not-started">
+                        Não iniciado
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="goal-in-progress" data-value="Em andamento">
+
+                    <label class="form-check-label" for="goal-in-progress">
+                        Em andamento
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="goal-completed" data-value="Concluído">
+
+                    <label class="form-check-label" for="goal-completed">
+                        Concluído
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Adicionar metas -->
+        <button type="button" class="add-goal-btn add-btn" data-bs-toggle="modal" data-bs-target="#goalModal">
+            <span>+ Adicionar meta</span>
+        </button>
+    </div>
+
+    <!-- Cards -->
+    <div class="goals-grid">
+
+        <!-- Os cards serão adicionados aqui -->
+        <!-- Card de meta -->
+        <article class="goal-card" data-goal-id="1" data-name="Comprar uma bicicleta" data-current="412.50"
+            data-target="750.00" data-deadline="2027-01-31">
+
+            <!-- Cabeçalho -->
+            <div class="goal-card-header">
+
+                <h3 class="goal-card-title">
+                    Comprar uma bicicleta 🚲
+                </h3>
+
+                <!-- Alça para arrastar -->
+                <button type="button" class="goal-drag-handle" aria-label="Reorganizar meta">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                </button>
+
+            </div>
+
+            <!-- Informações -->
+            <div class="goal-card-info">
+
+                <div class="goal-info-row">
+                    <span class="goal-info-label">Objetivo</span>
+                    <span class="goal-info-value">R$ 750,00</span>
+                </div>
+
+                <div class="goal-info-row">
+                    <span class="goal-info-label">Valor acumulado</span>
+                    <span class="goal-info-value goal-current-value">
+                        R$ 412,50
+                    </span>
+                </div>
+
+                <div class="goal-info-row">
+                    <span class="goal-info-label">Prazo</span>
+                    <span class="goal-info-value">31/01/2027</span>
+                </div>
+
+            </div>
+
+            <!-- Progresso -->
+            <div class="goal-progress-section">
+
+                <div class="goal-progress-bar" role="progressbar" aria-label="Progresso da meta Comprar uma bicicleta"
+                    aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+
+                    <div class="goal-progress-fill" style="width: 55%;">
+                    </div>
+
+                </div>
+
+                <span class="goal-progress-percentage">55%</span>
+
+            </div>
+
+            <!-- Ações -->
+            <div class="goal-card-actions">
+
+                <button type="button" class="goal-contribution-btn" data-bs-toggle="modal"
+                    data-bs-target="#contributionModal" data-goal-id="1">
+                    + Adicionar contribuição
+                </button>
+
+                <div class="goal-action-buttons">
+
+                    <button type="button" class="edit-btn" aria-label="Editar meta Comprar uma bicicleta">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+
+                    <button type="button" class="delete-btn" aria-label="Excluir meta Comprar uma bicicleta">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        <article class="goal-card" data-goal-id="2" data-name="Planejar as férias" data-current="212.00"
+            data-target="2200.00" data-deadline="2027-12-15">
+
+            <!-- Cabeçalho -->
+            <div class="goal-card-header">
+
+                <h3 class="goal-card-title">
+                    Planejar as férias 🧳
+                </h3>
+
+                <!-- Alça para arrastar -->
+                <button type="button" class="goal-drag-handle" aria-label="Reorganizar meta">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                </button>
+
+            </div>
+
+            <!-- Informações -->
+            <div class="goal-card-info">
+
+                <div class="goal-info-row">
+                    <span class="goal-info-label">Objetivo</span>
+                    <span class="goal-info-value">R$ 2200.00</span>
+                </div>
+
+                <div class="goal-info-row">
+                    <span class="goal-info-label">Valor acumulado</span>
+                    <span class="goal-info-value goal-current-value">
+                        R$ 212.00
+                    </span>
+                </div>
+
+                <div class="goal-info-row">
+                    <span class="goal-info-label">Prazo</span>
+                    <span class="goal-info-value">15/12/2027</span>
+                </div>
+
+            </div>
+
+            <!-- Progresso -->
+            <div class="goal-progress-section">
+
+                <div class="goal-progress-bar" role="progressbar" aria-label="Progresso da meta Comprar uma bicicleta"
+                    aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+
+                    <div class="goal-progress-fill" style="width: 9%;">
+                    </div>
+
+                </div>
+
+                <span class="goal-progress-percentage">9%</span>
+
+            </div>
+
+            <!-- Ações -->
+            <div class="goal-card-actions">
+
+                <button type="button" class="goal-contribution-btn" data-bs-toggle="modal"
+                    data-bs-target="#contributionModal" data-goal-id="1">
+                    + Adicionar contribuição
+                </button>
+
+                <div class="goal-action-buttons">
+
+                    <button type="button" class="edit-btn" aria-label="Editar meta Comprar uma bicicleta">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+
+                    <button type="button" class="delete-btn" aria-label="Excluir meta Comprar uma bicicleta">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- Estado vazio -->
+    <div class="empty-state goals-empty-state d-none">
+        <i class="bi bi-inbox"></i>
+
+        <p class="goals-empty-message">
+            Não há metas cadastradas.
+        </p>
+    </div>
+
+
+</section>
+
+<!-- Modal de cadastro de metas -->
+<div class="modal fade" id="goalModal" tabindex="-1" aria-labelledby="goalModalTitle" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content goal-modal system-modal">
+
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+                <h2 class="modal-title" id="goalModalTitle">
+                    <i class="bi bi-piggy-bank"></i>
+                    Adicionar meta
+                </h2>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+
+            <!-- Formulário -->
+            <form id="goalForm" class="system-form">
+
+                <div class="modal-body">
+
+                    <!-- Nome -->
+                    <div class="goal-form-field system-form-field">
+                        <label for="goalName">Nome</label>
+
+                        <input type="text" id="goalName" name="name" class="form-control" maxlength="100" required>
+                    </div>
+
+                    <!-- Objetivo -->
+                    <div class="goal-form-field system-form-field">
+                        <label for="goalTarget">Objetivo</label>
+
+                        <input type="number" id="goalTarget" name="targetAmount" class="form-control" min="0.01"
+                            step="0.01" placeholder="R$ 0,00" required>
+                    </div>
+
+                    <!-- Prazo -->
+                    <div class="goal-form-field system-form-field">
+                        <label for="goalDeadline">Prazo</label>
+
+                        <input type="date" id="goalDeadline" name="deadline" class="form-control" required>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé -->
+                <div class="modal-footer">
+
+                    <button type="button" class="cancel-btn" data-bs-dismiss="modal">
+                        <span class="cancel-btn-label">Cancelar</span>
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        + Adicionar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal de contribuição para metas -->
+<div class="modal fade" id="contributionModal" tabindex="-1" aria-labelledby="contributionModalTitle"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content contribution-modal system-modal">
+
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+                <h2 class="modal-title" id="contributionModalTitle">
+                    <i class="bi bi-coin"></i>
+                    Adicionar contribuição
+                </h2>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+
+            <!-- Formulário -->
+            <form id="contributionForm" class="system-form">
+
+                <!-- Identificador da meta selecionada -->
+                <input type="hidden" id="contributionGoalId" name="goalId">
+
+                <div class="modal-body">
+
+                    <!-- Conta -->
+                    <div class="contribution-form-field system-form-field">
+                        <label for="contributionAccount">Conta</label>
+
+                        <select id="contributionAccount" name="accountId" class="form-select" required>
+
+                            <option value="" selected disabled>
+                                Selecione uma conta
+                            </option>
+
+                            <!-- Contas inseridas pelo JavaScript -->
+
+                        </select>
+                    </div>
+
+                    <!-- Valor -->
+                    <div class="contribution-form-field system-form-field">
+                        <label for="contributionAmount">Valor</label>
+
+                        <input type="number" id="contributionAmount" name="amount" class="form-control" min="0.01"
+                            step="0.01" placeholder="R$ 0,00" required>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé -->
+                <div class="modal-footer">
+
+                    <button type="button" class="cancel-btn" data-bs-dismiss="modal">
+                        <span class="cancel-btn-label">Cancelar</span>
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        + Adicionar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

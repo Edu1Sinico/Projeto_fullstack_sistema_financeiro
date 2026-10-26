@@ -1,0 +1,200 @@
+/* Aparência dos modais conforme o tema */
+.system-modal {
+    background-color: var(--surface-bg);
+    border: none;
+    border-radius: 15px;
+    padding: 5px 10px;
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Cabeçalho do Modal */
+.system-modal .modal-header {
+    border-bottom: 2px solid var(--divider-color);
+}
+
+.system-modal .modal-header .btn-close {
+    color: var(--font-color-darkgray);
+}
+
+.system-modal .modal-header .btn-close:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 .25rem transparent;
+}
+
+.system-modal .modal-header .modal-title {
+    font-family: var(--title-font);
+    display: flex;
+    align-items: center;
+    gap: var(--icon-gap);
+    color: var(--accent-color);
+}
+
+.system-modal .modal-header .modal-title i {
+    font-size: 37px;
+}
+
+/* Seção do formulário */
+.system-modal .system-form-field {
+    padding: 7.5px 5px;
+}
+
+.system-modal .system-form-field label {
+    color: var(--font-color-darkgray)
+}
+
+.system-modal .system-form-field input::placeholder {
+    color: var(--font-color-gray);
+}
+
+.system-modal .system-form-field .form-control:focus,
+.system-modal .system-form-field .form-select:focus {
+    border-color: #f8cca0;
+    box-shadow: 0 0 0 .25rem #f8cca0;
+}
+
+/* Rodapé do Modal */
+.system-modal .modal-footer {
+    border-top: 2px solid var(--divider-color);
+    display: flex;
+    gap: 15px;
+}
+
+.system-modal .modal-footer .cancel-btn {
+    position: relative;
+
+
+    background-color: transparent;
+    border: none;
+    color: var(--font-color-darkgray);
+
+    cursor: pointer;
+}
+
+.system-modal .modal-footer .cancel-btn::after {
+    content: "";
+    width: 0%;
+    height: 3px;
+
+    position: absolute;
+    bottom: 0;
+    left: 1px;
+
+    background-color: var(--font-color-darkgray);
+    transition: 0.3s ease-in-out;
+}
+
+.system-modal .modal-footer .cancel-btn:hover::after {
+    width: 100%;
+}
+
+.system-modal .modal-footer .save-btn {
+    padding: 5px 20px;
+    border: none;
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.system-modal .modal-footer .save-btn:hover {
+    background-color: #e87400;
+}
+
+/* Modal de alteração de senha */
+
+.password-modal .modal-title {
+    font-size: 20px;
+}
+
+.password-modal .modal-title i {
+    font-size: 28px;
+}
+
+/* Campos de senha */
+
+.password-modal .system-form-field {
+    margin-bottom: 12px;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-wrapper .form-control {
+    width: 100%;
+    padding-right: 45px;
+}
+
+/* Botão para mostrar ou ocultar senha */
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+
+    transform: translateY(-50%);
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background-color: transparent;
+
+    color: var(--font-color-darkgray);
+    cursor: pointer;
+}
+
+.password-toggle i {
+    font-size: 18px;
+}
+
+.password-toggle:hover {
+    color: var(--accent-color);
+}
+
+.password-toggle:focus-visible {
+    outline: 2px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+/* Mensagem de erro */
+
+.password-modal .password-error {
+    margin: 10px 5px 0;
+
+    color: var(--red-indicator);
+    font-size: 12px;
+    text-align: center;
+}
+/* Campos e controles acompanham o tema da aplicação */
+.system-modal {
+    color: var(--text-primary);
+}
+
+.system-modal .form-control,
+.system-modal .form-select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--divider-color);
+}
+
+.system-modal .form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+body.dark-mode .system-modal {
+    color-scheme: dark;
+}
+
+body.dark-mode .system-modal .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+body.dark-mode .system-modal .form-select {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23efefef' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}

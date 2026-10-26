@@ -1,0 +1,459 @@
+<section class="dashboard">
+
+    <!-- Todas as páginas terão basicamente essa seção para o título -->
+    <div class="main-top-section">
+        <h1 class="title-section">Dashboard</h1>
+
+        <!-- Filtros -->
+        <div class="filter-section">
+
+            <div class="filter-wrapper">
+
+                <button class="filter-trigger" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">
+                    <i class="bi bi-bank"></i>
+                    <span class="selected-dashboard-accounts">Contas</span>
+                    <i class="bi bi-chevron-down filter-arrow"></i>
+                </button>
+
+                <div class="dropdown-menu filter-menu">
+                    <!-- Lista de contas -->
+                    <h6 class="filter-menu-title">Contas</h6>
+
+                    <hr class="dropdown-divider">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="all-accounts" data-value="all" checked>
+
+                        <label class="form-check-label" for="all-accounts">
+                            Todas as contas
+                        </label>
+                    </div>
+
+                    <!-- Contas adicionadas dinamicamente pelo JavaScript -->
+                    <div id="dashboard-account-options"></div>
+
+                </div>
+
+            </div>
+
+            <div class="filter-wrapper">
+
+                <button type="button" class="filter-trigger" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">
+                    <i class="bi bi-calendar-date"></i>
+                    <span>Período</span>
+                    <i class="bi bi-chevron-down filter-arrow"></i>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-end filter-menu period-menu">
+                    <!-- Título do filtro -->
+                    <h6 class="filter-menu-title">Período</h6>
+
+                    <hr class="dropdown-divider">
+
+                    <!-- Data inicial e final -->
+                    <div class="period-fields">
+
+                        <div class="period-field">
+                            <label for="start-date">Data inicial</label>
+                            <input type="date" id="start-date" class="form-control">
+                        </div>
+
+                        <div class="period-field">
+                            <label for="end-date">Data final</label>
+                            <input type="date" id="end-date" class="form-control">
+                        </div>
+
+                    </div>
+
+                    <!-- Botão para limpar filtro -->
+                    <button type="button" class="clear-filter-btn">Limpar</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Cards financeiros -->
+    <div class="cards-section row g-4">
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="card financial-card">
+                <div class="card-title">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Saldo total</span>
+                </div>
+
+                <div class="card-info">
+                    <span id="dashboard-total-balance">R$ 0,00</span>
+                </div>
+
+                <div class="card-caption">
+                    <span>Saldo atual das contas selecionadas</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="card financial-card">
+                <div class="card-title">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Total de receitas</span>
+                    <span class="dot-green"></span>
+                </div>
+
+                <div class="card-info positive">
+                    <span id="dashboard-total-income">+ R$ 0,00</span>
+                </div>
+
+                <div class="card-caption">
+                    <span>Receitas do período</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="card financial-card">
+                <div class="card-title">
+                    <i class="bi bi-graph-down"></i>
+                    <span>Total de despesas</span>
+                    <span class="dot-red"></span>
+                </div>
+
+                <div class="card-info negative">
+                    <span id="dashboard-total-expenses">- R$ 0,00</span>
+                </div>
+
+                <div class="card-caption">
+                    <span>Despesas do período</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="card financial-card">
+                <div class="card-title">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Resultado do período</span>
+                    <span id="dashboard-result-indicator" class="dot-green"></span>
+                </div>
+
+                <div class="card-info">
+                    <span id="dashboard-period-result">R$ 0,00</span>
+                </div>
+
+                <div class="card-caption">
+                    <span>Receitas menos despesas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painéis do Dashboard -->
+    <div class="panels-section row g-4">
+
+        <!-- Transações recentes -->
+        <div class="col-12 col-lg-4">
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+                    <i class="bi bi-arrow-left-right"></i>
+                    <span>Transações recentes</span>
+                </div>
+
+                <!-- Filtros -->
+                <div class="panel-filters">
+                    <!-- Filtro de categorias -->
+                    <div class="dropdown transaction-filter">
+
+                        <button type="button" class="transaction-filter-btn" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false">
+
+                            <span>Categorias</span>
+                            <i class="bi bi-chevron-down filter-arrow"></i>
+
+                        </button>
+
+                        <div class="dropdown-menu transaction-filter-menu">
+
+                            <h6>Categorias</h6>
+                            <hr class="dropdown-divider">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="all-transaction-categories" checked>
+
+                                <label class="form-check-label" for="all-transaction-categories">
+                                    Todas as categorias
+                                </label>
+                            </div>
+
+                            <!-- Categorias inseridas pelo JavaScript -->
+                            <div id="dashboard-category-options"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Filtro de período -->
+                    <div class="dropdown transaction-filter">
+
+                        <button type="button" class="transaction-filter-btn" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+
+                            <span class="selected-period">Últimos 30 dias</span>
+                            <i class="bi bi-chevron-down filter-arrow"></i>
+
+                        </button>
+
+                        <ul class="dropdown-menu transaction-filter-menu">
+                            <li>
+                                <button class="dropdown-item" type="button" data-days="7">
+                                    Últimos 7 dias
+                                </button>
+                            </li>
+
+                            <li>
+                                <button class="dropdown-item" type="button" data-days="15">
+                                    Últimos 15 dias
+                                </button>
+                            </li>
+
+                            <li>
+                                <button class="dropdown-item active" type="button" data-days="30">
+                                    Últimos 30 dias
+                                </button>
+                            </li>
+
+                            <li>
+                                <button class="dropdown-item" type="button" data-days="60">
+                                    Últimos 60 dias
+                                </button>
+                            </li>
+
+                            <li>
+                                <button class="dropdown-item" type="button" data-days="90">
+                                    Últimos 90 dias
+                                </button>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="panel-content">
+                    <!-- Conteúdo das transações -->
+
+                    <!-- Lista de transações -->
+                    <div class="transactions-list"></div>
+
+
+                    <!-- Estado vazio -->
+                    <div class="empty-state transactions-empty-state d-none">
+                        <i class="bi bi-inbox"></i>
+                        <p>Nenhuma transação encontrada para os filtros selecionados.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Resumo de metas -->
+        <div class="col-12 col-lg-4">
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+                    <i class="bi bi-piggy-bank"></i>
+                    <span>Resumo de metas</span>
+                </div>
+
+                <!-- Filtros -->
+                <div class="panel-filters">
+
+                    <div class="dropdown goal-filter">
+
+                        <button type="button" class="goal-filter-btn" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <span class="selected-goal-order">
+                                Prazo mais próximo
+                            </span>
+
+                            <i class="bi bi-chevron-down filter-arrow"></i>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end goal-filter-menu">
+
+                            <li>
+                                <button type="button" class="dropdown-item active" data-order="asc">
+                                    Prazo mais próximo
+                                </button>
+                            </li>
+
+                            <li>
+                                <button type="button" class="dropdown-item" data-order="desc">
+                                    Prazo mais distante
+                                </button>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-content">
+                    <!-- Conteúdo das metas -->
+
+                    <!-- Estado vazio das metas -->
+                    <div class="empty-state goals-empty-state d-none">
+                        <i class="bi bi-inbox"></i>
+                        <p>Não há metas cadastradas.</p>
+                    </div>
+
+                    <!-- Lista de metas -->
+                    <div class="goals-list">
+
+                        <div class="goal-item" data-deadline="2027-01-31">
+
+                            <!-- Informações da meta -->
+                            <div class="goal-item-header">
+
+                                <div class="goal-details">
+                                    <span class="goal-title">
+                                        Comprar uma bicicleta 🚲
+                                    </span>
+
+                                    <small class="goal-deadline">
+                                        Meta até Janeiro de 2027
+                                    </small>
+                                </div>
+
+                                <button type="button" class="goal-details-btn" data-goal-id="1"
+                                    aria-label="Ver detalhes da meta">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+
+                            </div>
+
+                            <!-- Progresso da meta -->
+                            <div class="goal-progress">
+
+                                <div class="goal-values">
+                                    <span class="goal-current-value">
+                                        R$ 412,50
+                                    </span>
+
+                                    <span class="goal-target-value">
+                                        R$ 750,00
+                                    </span>
+                                </div>
+
+                                <div class="progress goal-progress-bar">
+                                    <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55"
+                                        aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da meta">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="goal-item" data-deadline="2027-12-15">
+
+                            <!-- Informações da meta -->
+                            <div class="goal-item-header">
+
+                                <div class="goal-details">
+                                    <span class="goal-title">
+                                        Planejar as férias 🧳
+                                    </span>
+
+                                    <small class="goal-deadline">
+                                        Meta até Dezembro de 2027
+                                    </small>
+                                </div>
+
+                                <button type="button" class="goal-details-btn" data-goal-id="2"
+                                    aria-label="Ver detalhes da meta">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+
+                            </div>
+
+                            <!-- Progresso da meta -->
+                            <div class="goal-progress">
+
+                                <div class="goal-values">
+                                    <span class="goal-current-value">
+                                        R$ 212,00
+                                    </span>
+
+                                    <span class="goal-target-value">
+                                        R$ 2200,00
+                                    </span>
+                                </div>
+
+                                <div class="progress goal-progress-bar">
+                                    <div class="progress-bar" role="progressbar" style="width: 9.6%;"
+                                        aria-valuenow="9.6" aria-valuemin="0" aria-valuemax="100"
+                                        aria-label="Progresso da meta">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Detalhes das contas -->
+        <div class="col-12 col-lg-4">
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+                    <i class="bi bi-bank"></i>
+                    <span>Detalhes das contas</span>
+                </div>
+
+                <!-- Filtros -->
+                <div class="panel-summary">
+                    <div class="balance-section">
+                        <span>Saldo total</span>
+                        <span id="dashboard-accounts-balance">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <div class="panel-content">
+                    <!-- Conteúdo das contas -->
+
+                    <!-- Caso não existam contas cadastradas  -->
+                    <!-- <div class="empty-state">
+                        <i class="bi bi-inbox"></i>
+                        <p>Não há contas cadastradas</p>
+                    </div> -->
+
+                    <!-- Lista de metas -->
+                    <div class="accounts-list">
+
+                        <!-- Contas inseridas pelo JavaScript -->
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>

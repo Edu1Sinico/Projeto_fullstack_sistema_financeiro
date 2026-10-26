@@ -1,0 +1,141 @@
+:root {
+    --title-font: 'Poppins', Arial, sans-serif;
+
+    /* Identidade visual */
+    --sidebar-bg: #292E36;
+    --accent-color: #FF8000;
+
+    /* Cores principais */
+    --content-bg: #FFFFFF;
+    --surface-bg: #FFFFFF;
+    --text-primary: #292E36;
+    --text-secondary: #757575;
+    --divider-color: #EAEAEA;
+    --input-bg: #FFFFFF;
+
+    /* Variáveis existentes */
+    --border-color: #4C5666;
+    --font-color-darkgray: #757575;
+    --font-color-gray: #CACACA;
+    --font-color-lightgray: #BEBEBE;
+
+    --icon-size: 20px;
+    --icon-gap: 12px;
+
+    --green-indicator: #34A641;
+    --red-indicator: #BD2E2E;
+
+    --hover-bg: #F0F0F0;
+}
+
+/* Variáveis do tema escuro */
+body.dark-mode {
+    --content-bg: #313945;
+    --surface-bg: #313945;
+
+    --text-primary: #EFEFEF;
+    --text-secondary: #CACACA;
+
+    --divider-color: #4C5666;
+    --input-bg: #394351;
+
+    --font-color-darkgray: #CACACA;
+    --font-color-gray: #BEBEBE;
+    --font-color-lightgray: #CACACA;
+
+    --hover-bg: #394351;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
+    background-color: var(--content-bg);
+    color: var(--text-primary);
+}
+
+/* Estrutura geral da aplicação */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menu lateral */
+.sidebar {
+    width: 275px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+
+    display: flex;
+    flex-direction: column;
+
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Região à direita do menu */
+.app-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+.app-header {
+    width: 100%;
+    height: 65px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    flex-shrink: 0;
+
+    background-color: var(--content-bg);
+}
+
+/* Conteúdo interno do cabeçalho */
+.header-content {
+    height: 100%;
+    margin: 0 35px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    border-bottom: 3px solid var(--divider-color);
+}
+
+/* Conteúdo principal */
+.app-main {
+    flex: 1;
+    padding: 28px;
+    background-color: var(--content-bg);
+}
+
+/* Outros componentes */
+
+.title-section {
+    margin: 0;
+    font-family: var(--title-font);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+.main-top-section {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

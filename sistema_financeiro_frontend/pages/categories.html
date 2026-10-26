@@ -1,0 +1,282 @@
+<section class="categories">
+
+    <div class="main-top-section">
+        <h1 class="title-section">Categorias</h1>
+    </div>
+
+    <!-- Barra de filtros -->
+    <div class="categories-toolbar toolbar">
+
+        <!-- Pesquisa -->
+        <div class="categories-search search-bar">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Pesquisar" aria-label="Pesquisar categorias">
+        </div>
+
+        <!-- Filtro de data -->
+        <div class="dropdown categories-date-filter filter">
+            <!-- Dropdown de data -->
+            <button type="button" class="date-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span class="selected-category-date">Data</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu date-filter-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecionar data</h6>
+
+                <hr class="dropdown-divider">
+
+                <!-- Campo de data -->
+                <input type="date" id="category-date-filter" class="form-control date-filter-input"
+                    aria-label="Filtrar categoria por data">
+
+                <!-- Botão para limpar filtro -->
+                <button type="button" class="clear-filter-btn">Limpar</button>
+
+            </div>
+        </div>
+
+        <!-- Filtro de tipo -->
+        <div class="dropdown categories-filter filter category-type-filter">
+            <!-- Dropdown de tipo -->
+            <button type="button" class="type-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span class="selected-category-type">Tipo</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu type-filter-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione o tipo</h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="category-all-types" data-value="all" checked>
+
+                    <label class="form-check-label" for="all-types">
+                        Todos os tipos
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" data-value="Receita" id="category-income"
+                        data-value="Receita">
+
+                    <label class="form-check-label" for="category-income">
+                        Receita
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" data-value="Despesa" id="category-expense"
+                        data-value="Despesa">
+
+                    <label class="form-check-label" for="category-expense">
+                        Despesa
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Filtro de status -->
+        <div class="dropdown categories-filter filter category-status-filter">
+            <!-- Dropdown de status -->
+            <button type="button" class="status-filter-btn filter-btn" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false">
+                <span class="selected-category-status">Status</span>
+                <i class="bi bi-chevron-down filter-arrow"></i>
+            </button>
+
+            <div class="dropdown-menu type-filter-menu filter-menu-section">
+
+                <h6 class="filter-menu-title">Selecione um status</h6>
+
+                <hr class="dropdown-divider">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="all-status" data-value="all" checked>
+
+
+                    <label class="form-check-label" for="all-status">
+                        Todos os status
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="activate-active" data-value="Ativo">
+                    
+                    <label class="form-check-label" for="activate-status">
+                        Ativo
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inactivate-status" data-value="Inativo">
+
+                    <label class="form-check-label" for="inactivate-status">
+                        Inativo
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Adicionar categoria -->
+        <button type="button" class="add-category-btn add-btn" data-bs-toggle="modal" data-bs-target="#categoryModal">
+            <span>+ Adicionar categoria</span>
+        </button>
+
+    </div>
+
+    <!-- Tabela de categorias -->
+    <div class="categories-table-section table-section ">
+
+        <div class="table-responsive">
+            <table class="table data-table categories-table">
+
+                <thead>
+                    <tr class="table-header">
+                        <th scope="col">Data</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="table-row" data-name="Salário" data-date="2026-10-13" data-type="Receita"
+                        data-status="Ativo">
+
+                        <td>13/10/2026</td>
+                        <td>Salário</td>
+                        <td>Receita</td>
+                        <td>Ativo</td>
+
+                        <td>
+                            <button type="button" class="edit-btn">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button type="button" class="delete-btn">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr class="table-row" data-name="Pagamento" data-date="2026-10-13" data-type="Despesa"
+                        data-status="Ativo">
+
+                        <td>13/10/2026</td>
+                        <td>Pagamento</td>
+                        <td>Despesa</td>
+                        <td>Ativo</td>
+                        <td>
+                            <button type="button" class="edit-btn" aria-label="Editar categoria">
+                                <i class="bi bi-pencil" aria-hidden="true"></i>
+                            </button>
+
+                            <button type="button" class="delete-btn" aria-label="Excluir categoria">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Aparecer no meio da tabela quando não ter nenhum elemento nela. -->
+        <div class="empty-state categories-empty-state d-none">
+            <i class="bi bi-inbox"></i>
+            <p class="categories-empty-message">Não há categorias cadastradas</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Modal de cadastro de categorias -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalTitle" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content category-modal system-modal">
+
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+
+                <h2 class="modal-title" id="categoryModalTitle">
+                    <i class="bi bi-file-earmark-text"></i>
+                    Adicionar uma categoria
+                </h2>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+
+            </div>
+
+            <!-- Formulário -->
+            <form id="categoryForm" class="system-form">
+
+                <div class="modal-body">
+
+                    <div class="category-form-field system-form-field">
+                        <label for="categoryName">Nome</label>
+                        <input type="text" id="categoryName" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="category-form-field system-form-field">
+                        <label for="categoryType">Tipo</label>
+                        <select id="categoryType" name="type" class="form-select" required>
+
+                            <option value="" selected disabled>
+                                Selecione um tipo
+                            </option>
+                            <option value="Receita">
+                                Receita
+                            </option>
+                            <option value="Despesa">
+                                Despesa
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="category-form-field system-form-field">
+                        <label for="categoryStatus">Status</label>
+                        <select id="categoryStatus" name="status" class="form-select" required>
+
+                            <option value="Ativo" selected>Ativo</option>
+                            <option value="Inativo">Inativo</option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé -->
+                <div class="modal-footer">
+
+                    <button type="button" class="cancel-btn" data-bs-dismiss="modal">
+                        <span class="cancel-btn-label">Cancelar</span>
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        + Adicionar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
