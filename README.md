@@ -1,4 +1,4 @@
-# Sistema Financeiro — API Laravel
+# Finixis (Sistema Financeiro) — API Laravel
 
 API acadêmica para organização financeira pessoal. O sistema permite que cada usuário controle suas contas, categorias, receitas, despesas e metas financeiras. A autenticação é feita com JSON Web Token (JWT), deixando o backend preparado para ser consumido por um front-end separado.
 
