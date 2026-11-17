@@ -15,7 +15,7 @@ Não são utilizados DTOs, repositories ou camadas de casos de uso. Como este pr
 
 ## Tecnologias
 
-- PHP 8.3 ou superior;
+- PHP 8.4 ou superior;
 - Laravel 13;
 - Eloquent ORM;
 - MySQL 8.4 para desenvolvimento, testes e entrega;
@@ -111,7 +111,7 @@ O usuário deve poder listar, cadastrar, consultar, alterar e excluir metas com 
 
 ### RF09 — Contribuições para metas
 
-O usuário deve poder associar uma transação a uma meta, informando quanto do valor da transação foi destinado a ela. Também deve ser possível atualizar ou remover essa associação.
+O usuário deve poder guardar dinheiro em uma meta, escolhendo a conta de origem e o valor. O sistema retira o valor da conta e registra automaticamente uma despesa na categoria interna "Contribuição para metas", mantendo o histórico no extrato. Também deve ser possível remover uma contribuição, devolvendo o valor à conta.
 
 ### RF10 — Dashboard
 
@@ -154,7 +154,7 @@ O sistema deve fornecer um resumo com:
 - RN19: ao editar uma transação, o efeito anterior é revertido antes da aplicação dos novos dados;
 - RN20: ao excluir uma transação, seu efeito é revertido no saldo;
 - RN21: se a transação mudar de conta, a conta anterior é corrigida e o novo efeito é aplicado na conta de destino;
-- RN22: uma transação não pode ser reduzida para um valor menor que o total já destinado às metas;
+- RN22: transações geradas por contribuições não podem ser alteradas nem excluídas pelos endpoints de transações (status 409); devem ser gerenciadas pelos endpoints de metas;
 - RN23: alterações de saldo são executadas em transações de banco e utilizam bloqueio da conta para evitar concorrência.
 
 ### Metas e contribuições
@@ -162,9 +162,9 @@ O sistema deve fornecer um resumo com:
 - RN24: o valor objetivo da meta deve ser maior que zero;
 - RN25: o objetivo não pode ser alterado para um valor menor que o total já contribuído;
 - RN26: uma contribuição deve ser maior que zero;
-- RN27: a soma das contribuições de uma transação não pode superar o valor da própria transação;
+- RN27: a conta de origem deve pertencer ao usuário, estar ativa e possuir saldo suficiente;
 - RN28: a soma das contribuições de uma meta não pode superar seu objetivo;
-- RN29: a transação usada na contribuição deve pertencer ao usuário da meta;
+- RN29: remover uma contribuição, ou excluir a meta, devolve os valores às contas de origem e apaga as despesas geradas;
 - RN30: o valor atual, o percentual e a conclusão da meta são calculados pelas contribuições, evitando valores duplicados no banco.
 
 ## Estrutura principal
@@ -204,7 +204,7 @@ tests/
 
 ## Pré-requisitos
 
-- PHP 8.3 ou superior com `pdo_pgsql` para PostgreSQL ou `pdo_mysql` para MySQL;
+- PHP 8.4 ou superior com `pdo_pgsql` para PostgreSQL ou `pdo_mysql` para MySQL;
 - Composer;
 - PostgreSQL ou MySQL;
 - Git;
@@ -536,7 +536,7 @@ A resposta inclui campos calculados:
 
 ### Contribuições
 
-Criar ou atualizar uma contribuição:
+Contribuir para uma meta, retirando o valor de uma conta:
 
 ```http
 POST /api/goals/{goal_id}/contributions
@@ -544,12 +544,14 @@ POST /api/goals/{goal_id}/contributions
 
 ```json
 {
-  "transaction_id": 1,
-  "contributed_amount": 500.00
+  "account_id": 1,
+  "amount": 500.00
 }
 ```
 
-Remover o vínculo entre meta e transação:
+A resposta (201) traz a meta atualizada (`goal`) e a despesa criada automaticamente (`transaction`).
+
+Remover uma contribuição, usando o ID da transação gerada por ela. O valor volta para a conta de origem:
 
 ```http
 DELETE /api/goals/{goal_id}/contributions/{transaction_id}
@@ -575,7 +577,7 @@ As funcionalidades podem ser testadas no Postman, Insomnia ou outra ferramenta H
 6. crie uma receita ou despesa com `POST /api/transactions`;
 7. confira o novo saldo com `GET /api/accounts/{id}`;
 8. crie uma meta com `POST /api/goals`;
-9. vincule uma transação usando o endpoint de contribuições;
+9. contribua para a meta usando o endpoint de contribuições;
 10. consulte `GET /api/dashboard` para visualizar o resumo.
 
 ## Códigos HTTP mais utilizados
