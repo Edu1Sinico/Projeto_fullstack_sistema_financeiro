@@ -1,6 +1,6 @@
-# Finaxis — Sistema Financeiro em PHP puro
+# Finaxis — Sistema Financeiro em PHP
 
-O Finaxis é um sistema didático de gestão financeira pessoal. Esta versão foi convertida de Laravel para **PHP puro**, mantendo o front-end web e as regras financeiras do projeto anterior. A API também está pronta para ser consumida futuramente pelo aplicativo Android em Kotlin.
+O Finaxis é um sistema didático de gestão financeira pessoal.
 
 ## Funcionalidades
 
