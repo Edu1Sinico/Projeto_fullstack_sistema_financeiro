@@ -29,10 +29,17 @@ final class AuthController extends Controller
 
         $user = Database::transaction(function () use ($data): array {
             $user = User::create($data['name'], $data['email'], $data['password']);
-            foreach ([
-                ['Salário', 'income'], ['Investimentos', 'income'], ['Alimentação', 'expense'],
-                ['Moradia', 'expense'], ['Transporte', 'expense'], ['Lazer', 'expense'], ['Saúde', 'expense'],
-            ] as [$name, $type]) {
+            foreach (
+                [
+                    ['Salário', 'income'],
+                    ['Investimentos', 'income'],
+                    ['Alimentação', 'expense'],
+                    ['Moradia', 'expense'],
+                    ['Transporte', 'expense'],
+                    ['Lazer', 'expense'],
+                    ['Saúde', 'expense'],
+                ] as [$name, $type]
+            ) {
                 Category::create((int) $user['id'], compact('name', 'type'));
             }
             return $user;
@@ -55,8 +62,14 @@ final class AuthController extends Controller
         $this->tokenResponse($user);
     }
 
-    public function me(Request $request): never { Response::json(User::publicData($request->user())); }
-    public function refresh(Request $request): never { $this->tokenResponse($request->user()); }
+    public function me(Request $request): never
+    {
+        Response::json(User::publicData($request->user()));
+    }
+    public function refresh(Request $request): never
+    {
+        $this->tokenResponse($request->user());
+    }
 
     public function logout(Request $request): never
     {

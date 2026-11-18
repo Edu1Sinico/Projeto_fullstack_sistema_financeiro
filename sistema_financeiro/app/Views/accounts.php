@@ -1,3 +1,76 @@
-<section class="accounts" data-filter-page="accounts"><div class="main-top-section"><h1 class="title-section">Contas</h1></div><div class="accounts-toolbar toolbar"><div class="accounts-search search-bar"><i class="bi bi-search"></i><input type="search" class="js-table-search" placeholder="Pesquisar"></div><div class="dropdown accounts-date-filter filter"><button type="button" class="date-filter-btn filter-btn" data-bs-toggle="dropdown"><span>Data</span><i class="bi bi-chevron-down"></i></button><div class="dropdown-menu date-filter-menu filter-menu-section"><input type="date" class="form-control js-date-filter"><button type="button" class="clear-filter-btn js-clear-filter">Limpar</button></div></div><div class="filter"><select class="form-select filter-btn js-type-filter"><option value="">Tipo</option><option value="checking">Conta bancária</option><option value="savings">Poupança</option><option value="wallet">Carteira</option></select></div><div class="filter"><select class="form-select filter-btn js-status-filter"><option value="">Status</option><option value="active">Ativo</option><option value="inactive">Inativo</option></select></div><button type="button" class="add-account-btn add-btn js-create-record" data-form-mode="create" data-bs-toggle="modal" data-bs-target="#accountModal">+ Adicionar conta</button></div>
-<div class="accounts-table-section table-section"><div class="table-responsive <?= $accounts===[]?'d-none':'' ?>"><table class="table data-table accounts-table"><thead><tr class="table-header"><th>Data</th><th>Nome</th><th>Tipo</th><th>Status</th><th>Saldo atual</th><th>Ações</th></tr></thead><tbody><?php foreach($accounts as $account): ?><tr class="table-row" data-search="<?= e(lower($account['name'])) ?>" data-date="<?= e(substr($account['created_at'],0,10)) ?>" data-type="<?= e($account['type']) ?>" data-status="<?= e($account['status']) ?>"><td><?= e(date_br($account['created_at'])) ?></td><td><?= e($account['name']) ?></td><td><?= e(['checking'=>'Conta bancária','savings'=>'Poupança','wallet'=>'Carteira'][$account['type']]??$account['type']) ?></td><td><?= $account['status']==='active'?'Ativo':'Inativo' ?></td><td>R$ <?= money($account['balance']) ?></td><td><button type="button" class="edit-btn js-edit-account" data-form-mode="edit" data-record="<?= json_attr($account) ?>" data-bs-toggle="modal" data-bs-target="#accountModal"><i class="bi bi-pencil"></i></button><button type="button" class="delete-btn js-delete-record" data-url="/api/accounts/<?= (int)$account['id'] ?>" data-name="<?= e($account['name']) ?>"><i class="bi bi-trash3"></i></button></td></tr><?php endforeach; ?></tbody></table></div><div class="empty-state js-filter-empty <?= $accounts===[]?'':'d-none' ?>"><i class="bi bi-inbox"></i><p><?= $accounts===[]?'Não há contas cadastradas':'Nenhuma conta encontrada' ?></p></div></div></section>
-<div class="modal fade" id="accountModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content account-modal system-modal"><div class="modal-header"><h2 class="modal-title"><i class="bi bi-bank"></i> <span class="js-modal-title">Adicionar uma conta</span></h2><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><form id="accountForm" class="system-form" data-resource="accounts"><input type="hidden" name="id"><div class="modal-body"><div class="system-form-field"><label>Nome</label><input type="text" name="name" class="form-control" minlength="3" maxlength="100" required></div><div class="system-form-field"><label>Tipo</label><select name="type" class="form-select" required><option value="" disabled selected>Selecione um tipo</option><option value="checking">Conta bancária</option><option value="savings">Poupança</option><option value="wallet">Carteira</option></select></div><div class="system-form-field"><label>Status</label><select name="status" class="form-select"><option value="active">Ativo</option><option value="inactive">Inativo</option></select></div><div class="system-form-field js-create-only"><label>Saldo inicial</label><input type="number" name="balance" class="form-control" min="0" step="0.01" value="0" required></div><p class="form-error text-danger d-none"></p></div><div class="modal-footer"><button type="button" class="cancel-btn" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="save-btn"><span class="js-submit-label">+ Adicionar</span></button></div></form></div></div></div>
+<section class="accounts" data-filter-page="accounts">
+    <div class="main-top-section">
+        <h1 class="title-section">Contas</h1>
+    </div>
+    <div class="accounts-toolbar toolbar">
+        <div class="accounts-search search-bar"><i class="bi bi-search"></i><input type="search" class="js-table-search" placeholder="Pesquisar"></div>
+        <div class="dropdown accounts-date-filter filter"><button type="button" class="date-filter-btn filter-btn" data-bs-toggle="dropdown"><span>Data</span><i class="bi bi-chevron-down filter-arrow"></i></button>
+            <div class="dropdown-menu date-filter-menu filter-menu-section"><input type="date" class="form-control js-date-filter"><button type="button" class="clear-filter-btn js-clear-filter">Limpar</button></div>
+        </div>
+        <div class="filter"><select class="form-select filter-btn js-type-filter">
+                <option value="">Tipo</option>
+                <option value="checking">Conta bancária</option>
+                <option value="savings">Poupança</option>
+                <option value="wallet">Carteira</option>
+            </select></div>
+        <div class="filter"><select class="form-select filter-btn js-status-filter">
+                <option value="">Status</option>
+                <option value="active">Ativo</option>
+                <option value="inactive">Inativo</option>
+            </select></div><button type="button" class="add-account-btn add-btn js-create-record" data-form-mode="create" data-bs-toggle="modal" data-bs-target="#accountModal">+ Adicionar conta</button>
+    </div>
+    <div class="accounts-table-section table-section">
+        <div class="table-responsive <?= $accounts === [] ? 'd-none' : '' ?>">
+            <table class="table data-table accounts-table">
+                <thead>
+                    <tr class="table-header">
+                        <th>Data</th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                        <th>Saldo atual</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody><?php foreach ($accounts as $account): ?><tr class="table-row" data-search="<?= e(lower($account['name'])) ?>" data-date="<?= e(substr($account['created_at'], 0, 10)) ?>" data-type="<?= e($account['type']) ?>" data-status="<?= e($account['status']) ?>">
+                            <td><?= e(date_br($account['created_at'])) ?></td>
+                            <td><?= e($account['name']) ?></td>
+                            <td><?= e(['checking' => 'Conta bancária', 'savings' => 'Poupança', 'wallet' => 'Carteira'][$account['type']] ?? $account['type']) ?></td>
+                            <td><?= $account['status'] === 'active' ? 'Ativo' : 'Inativo' ?></td>
+                            <td>R$ <?= money($account['balance']) ?></td>
+                            <td><button type="button" class="edit-btn js-edit-account" data-form-mode="edit" data-record="<?= json_attr($account) ?>" data-bs-toggle="modal" data-bs-target="#accountModal"><i class="bi bi-pencil"></i></button><button type="button" class="delete-btn js-delete-record" data-url="/api/accounts/<?= (int)$account['id'] ?>" data-name="<?= e($account['name']) ?>"><i class="bi bi-trash3"></i></button></td>
+                        </tr><?php endforeach; ?></tbody>
+            </table>
+        </div>
+        <div class="empty-state js-filter-empty <?= $accounts === [] ? '' : 'd-none' ?>"><i class="bi bi-inbox"></i>
+            <p><?= $accounts === [] ? 'Não há contas cadastradas' : 'Nenhuma conta encontrada' ?></p>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="accountModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content account-modal system-modal">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="bi bi-bank"></i> <span class="js-modal-title">Adicionar uma conta</span></h2><button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="accountForm" class="system-form" data-resource="accounts"><input type="hidden" name="id">
+                <div class="modal-body">
+                    <div class="system-form-field"><label>Nome</label><input type="text" name="name" class="form-control" minlength="3" maxlength="100" required></div>
+                    <div class="system-form-field"><label>Tipo</label><select name="type" class="form-select" required>
+                            <option value="" disabled selected>Selecione um tipo</option>
+                            <option value="checking">Conta bancária</option>
+                            <option value="savings">Poupança</option>
+                            <option value="wallet">Carteira</option>
+                        </select></div>
+                    <div class="system-form-field"><label>Status</label><select name="status" class="form-select">
+                            <option value="active">Ativo</option>
+                            <option value="inactive">Inativo</option>
+                        </select></div>
+                    <div class="system-form-field js-create-only"><label>Saldo inicial</label><input type="number" name="balance" class="form-control" min="0" step="0.01" value="0" required></div>
+                    <p class="form-error text-danger d-none"></p>
+                </div>
+                <div class="modal-footer"><button type="button" class="cancel-btn" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="save-btn"><span class="js-submit-label">+ Adicionar</span></button></div>
+            </form>
+        </div>
+    </div>
+</div>

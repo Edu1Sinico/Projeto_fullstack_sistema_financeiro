@@ -11,27 +11,27 @@ function env(string $key, mixed $default = null): mixed
 
 function base_path(string $path = ''): string
 {
-    return ROOT_PATH.($path !== '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
+    return ROOT_PATH . ($path !== '' ? DIRECTORY_SEPARATOR . ltrim($path, '\\/') : '');
 }
 
 function base_url(): string
 {
     $path = trim((string) env('APP_BASE_PATH', ''), '/');
 
-    return $path === '' ? '' : '/'.$path;
+    return $path === '' ? '' : '/' . $path;
 }
 
 function url(string $path = ''): string
 {
-    return base_url().($path !== '' ? '/'.ltrim($path, '/') : '');
+    return base_url() . ($path !== '' ? '/' . ltrim($path, '/') : '');
 }
 
 function asset(string $path): string
 {
-    $file = base_path('public/'.ltrim($path, '/'));
-    $version = is_file($file) ? '?v='.filemtime($file) : '';
+    $file = base_path('public/' . ltrim($path, '/'));
+    $version = is_file($file) ? '?v=' . filemtime($file) : '';
 
-    return base_url().'/public/'.ltrim($path, '/').$version;
+    return base_url() . '/public/' . ltrim($path, '/') . $version;
 }
 
 function e(mixed $value): string
