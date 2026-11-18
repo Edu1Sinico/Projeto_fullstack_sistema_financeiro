@@ -4,8 +4,10 @@ declare(strict_types=1);
 require_once dirname(__DIR__).'/app/bootstrap.php';
 
 use App\Core\Jwt;
+use App\Core\Request;
 use App\Core\ValidationException;
 use App\Core\Validator;
+use App\Controllers\TransactionController;
 
 $passed = 0;
 $failed = 0;
@@ -61,6 +63,43 @@ test('Validação rejeita valor financeiro negativo', function (): void {
         return;
     }
     throw new RuntimeException('Valor negativo foi aceito.');
+});
+
+test('Formulário de transação converte IDs e valor para tipos numéricos', function (): void {
+    $oldPost = $_POST;
+    $oldMethod = $_SERVER['REQUEST_METHOD'] ?? null;
+    $oldContentType = $_SERVER['CONTENT_TYPE'] ?? null;
+
+    $_SERVER['REQUEST_METHOD'] = 'POST';
+    $_SERVER['CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
+    $_POST = [
+        'account_id' => '7',
+        'category_id' => '3',
+        'description' => 'Compra de teste',
+        'amount' => '100.50',
+        'type' => 'expense',
+        'transaction_date' => '2026-11-17',
+    ];
+
+    try {
+        $method = new ReflectionMethod(TransactionController::class, 'validated');
+        $data = $method->invoke(new TransactionController(), new Request());
+        expect($data['account_id'] === 7, 'account_id não foi convertido para inteiro.');
+        expect($data['category_id'] === 3, 'category_id não foi convertido para inteiro.');
+        expect($data['amount'] === 100.5, 'amount não foi convertido para número.');
+    } finally {
+        $_POST = $oldPost;
+        if ($oldMethod === null) {
+            unset($_SERVER['REQUEST_METHOD']);
+        } else {
+            $_SERVER['REQUEST_METHOD'] = $oldMethod;
+        }
+        if ($oldContentType === null) {
+            unset($_SERVER['CONTENT_TYPE']);
+        } else {
+            $_SERVER['CONTENT_TYPE'] = $oldContentType;
+        }
+    }
 });
 
 echo "\nResultado: {$passed} aprovado(s), {$failed} falha(s).\n";
