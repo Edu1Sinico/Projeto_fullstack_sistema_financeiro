@@ -1,8 +1,8 @@
-package com.finaxis.mobile
+package com.finaxis.finaxis_mobile
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.finaxis.mobile.databinding.ActivityMainBinding
+import com.finaxis.finaxis_mobile.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
