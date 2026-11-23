@@ -1,0 +1,9 @@
+# Nunca enviar o .env local para a imagem (as senhas ficam no painel do Render).
+.env
+.git
+.gitignore
+.dockerignore
+tests
+*.log
+.DS_Store
+Thumbs.db

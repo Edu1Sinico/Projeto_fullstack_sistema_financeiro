@@ -7,6 +7,8 @@ plugins {
 // Endereço da API PHP. Cada pessoa coloca o IP do próprio PC no arquivo
 // local.properties (que não vai para o Git), por exemplo:
 //   finaxis.apiUrl=http://192.168.0.15/sistema_financeiro/api/
+// Para usar o servidor no Render:
+//   finaxis.apiUrl=https://NOME-DO-SERVICO.onrender.com/api/
 val localProperties = Properties().apply {
     val file = rootProject.file("local.properties")
     if (file.exists()) file.inputStream().use { load(it) }

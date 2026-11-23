@@ -21,8 +21,10 @@ object ApiClient {
         val okHttp = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(tokenStore))
             .addInterceptor(logging)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
+            // O plano gratuito do Render "dorme" depois de 15 min sem uso e
+            // leva até ~1 minuto para acordar; por isso os tempos são maiores.
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(70, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()

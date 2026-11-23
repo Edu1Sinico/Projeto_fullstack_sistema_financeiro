@@ -1,0 +1,3 @@
+# Scripts do container precisam de quebra de linha Linux (LF), mesmo no Windows.
+*.sh text eol=lf
+Dockerfile text eol=lf
