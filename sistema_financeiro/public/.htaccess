@@ -2,6 +2,12 @@ Options -Indexes
 DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Repassa o token do app Android (Authorization: Bearer ...) para o PHP.
+    # Sem isso o Apache descarta o header e a API responde "Token não informado".
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]

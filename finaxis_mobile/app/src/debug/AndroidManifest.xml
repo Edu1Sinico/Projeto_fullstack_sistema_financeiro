@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Vale só para o build de DEBUG (o que roda pelo Android Studio).
+    O XAMPP local usa HTTP sem criptografia, e o Android bloqueia isso por padrão.
+    Aqui liberamos apenas durante o desenvolvimento. O build de release continua bloqueando.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application android:usesCleartextTraffic="true" />
+
+</manifest>

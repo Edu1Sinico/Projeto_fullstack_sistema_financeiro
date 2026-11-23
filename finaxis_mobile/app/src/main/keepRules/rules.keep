@@ -10,3 +10,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# O Gson lê e escreve os campos dos DTOs por reflexão: não renomear nem remover.
+-keep class com.finaxis.finaxis_mobile.data.remote.dto.** { *; }

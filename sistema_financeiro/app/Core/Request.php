@@ -58,9 +58,33 @@ final class Request
         return $_SERVER[$key] ?? null;
     }
 
+    /**
+     * O Apache (XAMPP) costuma não repassar o header Authorization para o PHP,
+     * e depois do RewriteRule ele pode chegar como REDIRECT_HTTP_AUTHORIZATION.
+     * Por isso procuramos o token em todos os lugares possíveis.
+     */
+    public function authorizationHeader(): ?string
+    {
+        foreach (['HTTP_AUTHORIZATION', 'REDIRECT_HTTP_AUTHORIZATION'] as $key) {
+            if (!empty($_SERVER[$key])) {
+                return (string) $_SERVER[$key];
+            }
+        }
+
+        if (function_exists('apache_request_headers')) {
+            foreach (apache_request_headers() as $name => $value) {
+                if (strcasecmp((string) $name, 'Authorization') === 0 && $value !== '') {
+                    return (string) $value;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public function bearerToken(): ?string
     {
-        $header = $this->header('Authorization');
+        $header = $this->authorizationHeader();
         if ($header !== null && preg_match('/^Bearer\s+(.+)$/i', $header, $matches)) {
             return trim($matches[1]);
         }
