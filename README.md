@@ -1,4 +1,4 @@
-# Finaxis — Sistema Financeiro em PHP
+# Finaxis - Sistema Financeiro em PHP
 
 O Finaxis é um sistema didático de gestão financeira pessoal.
 
